@@ -1,0 +1,10 @@
+type User {
+  id: ID!
+  username: String!
+  password: String!
+  email: String!
+}
+
+type Query {
+  readUser(id: ID!): User!
+}
