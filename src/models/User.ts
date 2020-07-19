@@ -1,10 +1,11 @@
-import mongoose, { Schema, Document, Model } from "mongoose";
-import bcrypt from "bcrypt";
+import mongoose, { Schema, Document } from "mongoose";
 
 export interface IUser extends Document {
   email: string;
   username: string;
   password: string;
+  favorite: string;
+  profileImage: string;
 }
 
 const UserSchema = new Schema({
@@ -20,6 +21,8 @@ const UserSchema = new Schema({
     required: "password is required",
     type: String,
   },
+  favorite: String,
+  profileImage: String,
 });
 
 const model = mongoose.model<IUser>("User", UserSchema);
