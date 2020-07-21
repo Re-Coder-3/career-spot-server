@@ -1,7 +1,6 @@
 import { Sequelize, Model, DataTypes, NOW } from "sequelize";
 import { config } from "./config";
 
-
 const db = new Sequelize(config.database, config.username, config.password, {
   host: config.host,
   dialect: "mysql",
@@ -39,10 +38,11 @@ export const user = db.define("user", {
   user_id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
-    autoIncrement: true,
-    defaultValue: NOW,
   },
   user_name: { type: Sequelize.STRING },
+  user_age: { type: Sequelize.NUMBER },
   user_email: { type: Sequelize.STRING },
   user_password: { type: Sequelize.STRING },
+  user_createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
+  user_updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
 });

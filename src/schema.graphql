@@ -12,6 +12,16 @@ type Catrgory {
   name: String!
 }
 
+type User {
+  id: ID!
+  name: String!
+  age: Int!
+  email: String!
+  password: String!
+  createdAt: String
+  updatedAt: String
+}
+
 type Mutation {
-  createUser(email: String!, username: String!, password: String!): String!
+  createUser(email: String!, username: String!, password: String!, age: Int!): String!
 }
