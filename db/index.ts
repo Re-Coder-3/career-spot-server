@@ -2,7 +2,6 @@ import {
     Sequelize,
     Model,
     DataTypes,
-    Association,
   } from "sequelize";
 import { config } from './config'
 
@@ -34,7 +33,7 @@ export const category = db.define("category",{
      * 프라이머리 키를 꼭 지정해줘야한다.
      * 지정 안해주면 자동으로 id 필드명이 들어가서 Unknown column ~ 오류 발생
      */
-    category_idx:{ type:DataTypes.INTEGER, primaryKey: true }, 
-    category_name: { type: DataTypes.STRING }
+    category_idx:{ type:Sequelize.INTEGER, primaryKey: true }, 
+    category_name: { type: Sequelize.STRING }
 });
 
