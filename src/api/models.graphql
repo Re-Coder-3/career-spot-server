@@ -1,6 +1,4 @@
-type User {
+type Catrgory {
   id: ID!
-  username: String!
-  password: String!
-  email: String!
+  name: String!
 }
