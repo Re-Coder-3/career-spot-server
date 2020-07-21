@@ -3,7 +3,7 @@ import { category } from './../../db/index'
 
 export const resolver =  {
   Query: {
-    select_category: async (_: any, args) => {
+    select_category: async (_: any, args:any) => {
       const { id } = args;
       try {
         const category_list = await category.findAndCountAll({})

@@ -4,6 +4,7 @@
   "description": "It's a basic tutorial of node.js, express.js, grahpQL, and sequelize ORM.",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/pratapshiv1992/Node.js-Express.js-GraphQL-Sequelize",
   "dependencies": {
+    "@types/sequelize": "^4.28.9",
     "express": "^4.16.4",
     "express-graphql": "^0.7.1",
     "graphql": "^14.1.1",
