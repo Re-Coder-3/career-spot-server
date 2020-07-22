@@ -18,25 +18,25 @@ const db = new Sequelize(config.database, config.username, config.password, {
 });
 
 db.authenticate()
-  .then(() => {
-    console.log("✅ Connection successfully.");
-  })
-  .catch((err) => {
-    console.error("❌ Unable to connect to the database:", err);
-  });
+    .then(() => {
+      console.log("✅ Connection successfully.");
+    })
+    .catch((err) => {
+      console.error("❌ Unable to connect to the database:", err);
+    });
 
+/**
+ * 0721 - 유진
+ * 프라이머리 키를 꼭 지정해줘야한다.
+ * 지정 안해주면 자동으로 id 필드명이 들어가서 Unknown column ~ 오류 발생
+ */
 export const category = db.define("category", {
-  /**
-   * 0721 - 유진
-   * 프라이머리 키를 꼭 지정해줘야한다.
-   * 지정 안해주면 자동으로 id 필드명이 들어가서 Unknown column ~ 오류 발생
-   */
-  category_idx: { type: Sequelize.INTEGER, primaryKey: true },
+  category_idx: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, unique: true, allowNull: true },
   category_name: { type: Sequelize.STRING },
 });
 
 export const user = db.define("user", {
-  user_id: {
+  user_idx: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
