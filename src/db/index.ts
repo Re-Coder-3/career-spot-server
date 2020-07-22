@@ -1,20 +1,24 @@
 import { Sequelize, Model, DataTypes, NOW } from "sequelize";
-import { config } from "./config";
+import { test, production } from "./config";
 
-const db = new Sequelize(config.database, config.username, config.password, {
-  host: config.host,
-  dialect: "mysql",
-  operatorsAliases: false,
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000,
-  },
-  define: {
-    freezeTableName: true,
-  },
-});
+const db = new Sequelize(
+  production.database,
+  production.username,
+  production.password,
+  {
+    host: production.host,
+    dialect: "mysql",
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000,
+    },
+    define: {
+      freezeTableName: true,
+    },
+  }
+);
 
 db.authenticate()
   .then(() => {
@@ -23,26 +27,3 @@ db.authenticate()
   .catch((err) => {
     console.error("❌ Unable to connect to the database:", err);
   });
-
-export const category = db.define("category", {
-  /**
-   * 0721 - 유진
-   * 프라이머리 키를 꼭 지정해줘야한다.
-   * 지정 안해주면 자동으로 id 필드명이 들어가서 Unknown column ~ 오류 발생
-   */
-  category_idx: { type: Sequelize.INTEGER, primaryKey: true },
-  category_name: { type: Sequelize.STRING },
-});
-
-export const user = db.define("user", {
-  user_id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-  },
-  user_name: { type: Sequelize.STRING },
-  user_age: { type: Sequelize.NUMBER },
-  user_email: { type: Sequelize.STRING },
-  user_password: { type: Sequelize.STRING },
-  user_createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
-  user_updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
-});
