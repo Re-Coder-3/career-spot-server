@@ -7,7 +7,7 @@ type Mutation {
   createCategory(category_idx: Int!, category_name: String!): Category!
   deleteCategory(category_idx: Int!): Category!
   updateCategory(category_idx: Int!, category_name: String!): Category!
-  createUser(user_idx: Int!, user_name: String!, user_email: String!, user_password: String!): User!
+  createUser(user_idx: Int!, user_name: String!, user_email: String!, user_password: String!): String
   deleteUser(user_idx: Int!): User!
   updateUser(user_idx: Int!, user_name: String!, user_email: String!, user_password: String!): User!
 }
