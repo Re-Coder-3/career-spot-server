@@ -24,9 +24,9 @@ export default {
       console.log(args);
       try {
         result = await User.create({
-          user_idx: 1,
-          user_name: args.user_name,
-          user_email: args.user_email,
+          id: 1,
+          name: args.name,
+          email: args.email,
         });
         console.log(result);
         return "true";
@@ -36,36 +36,36 @@ export default {
       }
     },
 
-    updateUser: async (_: any, args: UpdateUserMutationArgs) => {
-      let result: any;
-      try {
-        result = await User.update(args, {
-          where: {
-            user_idx: args.user_idx,
-          },
-        });
-      } catch (e) {
-        console.log(e);
-        throw e;
-      }
-      console.log(result);
-      return args;
-    },
+    // updateUser: async (_: any, args: UpdateUserMutationArgs) => {
+    //   let result: any;
+    //   try {
+    //     result = await User.update(args, {
+    //       where: {
+    //         user_idx: args.user_idx,
+    //       },
+    //     });
+    //   } catch (e) {
+    //     console.log(e);
+    //     throw e;
+    //   }
+    //   console.log(result);
+    //   return args;
+    // },
 
-    deleteUser: async (_: any, args: DeleteUserMutationArgs) => {
-      let result: any;
-      try {
-        result = await User.destroy({
-          where: {
-            user_idx: args.user_idx,
-          },
-        });
-      } catch (e) {
-        console.log(e);
-        throw e;
-      }
-      console.log(result);
-      return args;
-    },
+    // deleteUser: async (_: any, args: DeleteUserMutationArgs) => {
+    //   let result: any;
+    //   try {
+    //     result = await User.destroy({
+    //       where: {
+    //         user_idx: args.user_idx,
+    //       },
+    //     });
+    //   } catch (e) {
+    //     console.log(e);
+    //     throw e;
+    //   }
+    //   console.log(result);
+    //   return args;
+    // },
   },
 };
