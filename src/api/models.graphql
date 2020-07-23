@@ -1,4 +1,8 @@
-type Catrgory {
-  id: ID!
-  name: String!
+type User {
+  user_idx: Int!
+  user_name: String!
+  user_password: String!
+  user_email: String!
+  createdAt: String
+  updatedAt: String
 }
