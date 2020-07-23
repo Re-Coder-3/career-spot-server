@@ -1,9 +1,10 @@
 import { BuildOptions, DataTypes, Model, Sequelize } from "sequelize";
 
 export interface UserAttributes {
-  id: number;
-  name: string;
-  email: string;
+  user_idx: number;
+  user_name: string;
+  user_email: string;
+  user_password: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -18,17 +19,21 @@ export function UserFactory(sequelize: Sequelize): UserStatic {
   return <UserStatic>sequelize.define(
     "user",
     {
-      id: {
+      user_idx: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
       },
-      email: {
+      user_email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
       },
-      name: {
+      user_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      user_password: {
         type: DataTypes.STRING,
         allowNull: false,
       },

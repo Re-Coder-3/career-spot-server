@@ -1,4 +1,5 @@
 type User {
+  user_id: ID!
   user_idx: Int!
   user_name: String!
   user_password: String!
