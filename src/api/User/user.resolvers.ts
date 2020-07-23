@@ -21,14 +21,19 @@ export default {
   Mutation: {
     createUser: async (_: any, args: CreateUserMutationArgs) => {
       let result: any;
-      // try {
-      //   result = await User.create(args);
-      //   return "true";
-      // } catch (e) {
-      //   console.log(e);
-      //   return "false";
-      // }
-      return "hello";
+      console.log(args);
+      try {
+        result = await User.create({
+          user_idx: 1,
+          user_name: args.user_name,
+          user_email: args.user_email,
+        });
+        console.log(result);
+        return "true";
+      } catch (e) {
+        console.log(e);
+        return "false";
+      }
     },
 
     updateUser: async (_: any, args: UpdateUserMutationArgs) => {

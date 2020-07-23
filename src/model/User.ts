@@ -15,30 +15,36 @@ export type UserStatic = typeof Model & {
 };
 
 export function UserFactory(sequelize: Sequelize): UserStatic {
-  return <UserStatic>sequelize.define("users", {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
+  return <UserStatic>sequelize.define(
+    "users",
+    {
+      user_idx: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      user_email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      user_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+      },
     },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
-  });
+    {
+      freezeTableName: true,
+    }
+  );
 }

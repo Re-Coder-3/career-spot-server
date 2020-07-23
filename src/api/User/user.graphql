@@ -1,10 +1,10 @@
 type Query {
-  findUser: [User]!
+  findUser: String
 }
 
 type Mutation {
   createUser(
-    user_idx: Int!
+    user_idx: Int
     user_name: String!
     user_email: String!
     user_password: String!
