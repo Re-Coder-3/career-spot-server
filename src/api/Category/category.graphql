@@ -1,0 +1,14 @@
+type Query {
+  findCategory: [Category]!
+}
+
+type Mutation {
+  createCategory(category_idx: Int!, category_name: String!): Category!
+  deleteCategory(category_idx: Int!): Category!
+  updateCategory(category_idx: Int!, category_name: String!): Category!
+}
+
+type Category {
+  category_idx: Int!
+  category_name: String!
+}

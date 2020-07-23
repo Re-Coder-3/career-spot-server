@@ -1,0 +1,16 @@
+type Query {
+  findUser: [User]!
+}
+
+type Mutation {
+  createUser(user_idx: Int!, user_name: String!, user_email: String!, user_password: String! ): User!
+  deleteUser(user_idx: Int!): User!
+  updateUser(user_idx: Int!, user_name: String!, user_email: String!, user_password: String!): User!
+}
+
+type User {
+  user_idx: Int!
+  user_name: String!,
+  user_email: String!,
+  user_password: String!
+}

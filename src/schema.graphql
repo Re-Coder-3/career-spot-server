@@ -1,5 +1,15 @@
 type Query {
-  select_category: [Category]!
+  findCategory: [Category]!
+  findUser: [User]!
+}
+
+type Mutation {
+  createCategory(category_idx: Int!, category_name: String!): Category!
+  deleteCategory(category_idx: Int!): Category!
+  updateCategory(category_idx: Int!, category_name: String!): Category!
+  createUser(user_idx: Int!, user_name: String!, user_email: String!, user_password: String!): User!
+  deleteUser(user_idx: Int!): User!
+  updateUser(user_idx: Int!, user_name: String!, user_email: String!, user_password: String!): User!
 }
 
 type Category {
@@ -7,21 +17,9 @@ type Category {
   category_name: String!
 }
 
-type Catrgory {
-  id: ID!
-  name: String!
-}
-
 type User {
-  id: ID!
-  name: String!
-  age: Int!
-  email: String!
-  password: String!
-  createdAt: String
-  updatedAt: String
-}
-
-type Mutation {
-  createUser(email: String!, username: String!, password: String!, age: Int!): String!
+  user_idx: Int!
+  user_name: String!
+  user_email: String!
+  user_password: String!
 }
