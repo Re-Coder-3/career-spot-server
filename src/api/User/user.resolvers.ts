@@ -23,10 +23,10 @@ export default {
       console.log(args);
       try {
         const user = await User.create({
-          user_idx: 1,
-          user_name: args.name,
-          user_email: args.email,
-          user_password: args.password,
+          user_idx: "",
+          user_name: args.user_name,
+          user_email: args.user_email,
+          user_password: args.user_password,
         });
         console.log(user);
         return "true";
@@ -36,36 +36,36 @@ export default {
       }
     },
 
-    updateUser: async (_: any, args: UpdateUserMutationArgs) => {
-      let result: any;
-      try {
-        result = await User.update(args, {
-          where: {
-            user_idx: args.user_idx,
-          },
-        });
-      } catch (e) {
-        console.log(e);
-        throw e;
-      }
-      console.log(result);
-      return args;
-    },
+    // updateUser: async (_: any, args: UpdateUserMutationArgs) => {
+    //   let result: any;
+    //   try {
+    //     result = await User.update(args, {
+    //       where: {
+    //         user_idx: args.user_idx,
+    //       },
+    //     });
+    //   } catch (e) {
+    //     console.log(e);
+    //     throw e;
+    //   }
+    //   console.log(result);
+    //   return args;
+    // },
 
-    deleteUser: async (_: any, args: DeleteUserMutationArgs) => {
-      let result: any;
-      try {
-        result = await User.destroy({
-          where: {
-            user_idx: args.user_idx,
-          },
-        });
-      } catch (e) {
-        console.log(e);
-        throw e;
-      }
-      console.log(result);
-      return args;
-    },
+    // deleteUser: async (_: any, args: DeleteUserMutationArgs) => {
+    //   let result: any;
+    //   try {
+    //     result = await User.destroy({
+    //       where: {
+    //         user_idx: args.user_idx,
+    //       },
+    //     });
+    //   } catch (e) {
+    //     console.log(e);
+    //     throw e;
+    //   }
+    //   console.log(result);
+    //   return args;
+    // },
   },
 };
