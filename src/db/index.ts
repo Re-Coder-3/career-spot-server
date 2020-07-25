@@ -32,5 +32,5 @@ export const User = UserFactory(db);
 export const Post = PostFactory(db);
 export const Category = CategoryFactory(db);
 
-User.hasMany(Post);
-Post.belongsToMany(User, { through: "user_post" });
+Post.hasOne(User);
+// User.belongsTo(Post, {through: "post_user"});
