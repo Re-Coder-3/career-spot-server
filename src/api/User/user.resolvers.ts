@@ -20,15 +20,15 @@ export default {
 
   Mutation: {
     createUser: async (_: any, args: CreateUserMutationArgs) => {
-      let result: any;
       console.log(args);
       try {
-        result = await User.create({
-          id: 1,
-          name: args.name,
-          email: args.email,
+        const user = await User.create({
+          user_idx: 1,
+          user_name: args.name,
+          user_email: args.email,
+          user_password: args.password,
         });
-        console.log(result);
+        console.log(user);
         return "true";
       } catch (e) {
         console.log(e);
@@ -36,36 +36,36 @@ export default {
       }
     },
 
-    // updateUser: async (_: any, args: UpdateUserMutationArgs) => {
-    //   let result: any;
-    //   try {
-    //     result = await User.update(args, {
-    //       where: {
-    //         user_idx: args.user_idx,
-    //       },
-    //     });
-    //   } catch (e) {
-    //     console.log(e);
-    //     throw e;
-    //   }
-    //   console.log(result);
-    //   return args;
-    // },
+    updateUser: async (_: any, args: UpdateUserMutationArgs) => {
+      let result: any;
+      try {
+        result = await User.update(args, {
+          where: {
+            user_idx: args.user_idx,
+          },
+        });
+      } catch (e) {
+        console.log(e);
+        throw e;
+      }
+      console.log(result);
+      return args;
+    },
 
-    // deleteUser: async (_: any, args: DeleteUserMutationArgs) => {
-    //   let result: any;
-    //   try {
-    //     result = await User.destroy({
-    //       where: {
-    //         user_idx: args.user_idx,
-    //       },
-    //     });
-    //   } catch (e) {
-    //     console.log(e);
-    //     throw e;
-    //   }
-    //   console.log(result);
-    //   return args;
-    // },
+    deleteUser: async (_: any, args: DeleteUserMutationArgs) => {
+      let result: any;
+      try {
+        result = await User.destroy({
+          where: {
+            user_idx: args.user_idx,
+          },
+        });
+      } catch (e) {
+        console.log(e);
+        throw e;
+      }
+      console.log(result);
+      return args;
+    },
   },
 };
