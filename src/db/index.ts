@@ -2,6 +2,8 @@ import { Sequelize, Model, DataTypes, NOW } from "sequelize";
 import { config } from "./config";
 import { UserFactory } from "../model/User";
 import { PostFactory } from "../model/Post";
+import { CategoryFactory } from "../model/Category";
+
 
 const db = new Sequelize(config.database, config.username, config.password, {
   host: config.host,
@@ -28,6 +30,7 @@ db.authenticate()
 
 export const User = UserFactory(db);
 export const Post = PostFactory(db);
+export const Category = CategoryFactory(db);
 
 User.hasMany(Post);
 Post.belongsToMany(User, { through: "user_post" });
