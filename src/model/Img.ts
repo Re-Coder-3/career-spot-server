@@ -1,7 +1,7 @@
 import { BuildOptions, DataTypes, Model, Sequelize } from "sequelize";
 
 export interface ImageAttributes {
-  image_idx: number;
+  image_idx: number | string;
   image_url: string;
   createdAt?: Date;
   updatedAt?: Date;

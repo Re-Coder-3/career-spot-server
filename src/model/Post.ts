@@ -1,7 +1,7 @@
 import { BuildOptions, DataTypes, Model, Sequelize } from "sequelize";
 
 export interface PostAttributes {
-  post_idx: number;
+  post_idx: number | string;
   category_idx: number;
   user_idx: number;
   image_idx: number;
