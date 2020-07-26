@@ -30,6 +30,10 @@ export function PostFactory(sequelize: Sequelize): PostStatic {
         type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
+        references: {
+          model: 'category',
+          key: 'cateogory_idx'
+        }
       },
       user_idx: {
         type: DataTypes.INTEGER,

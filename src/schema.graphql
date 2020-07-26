@@ -1,6 +1,6 @@
 type Query {
   findCategory: [Category]!
-  findPost: [Post]!
+  findPost: returnType!
   findUser: String
 }
 
@@ -17,6 +17,8 @@ type Mutation {
 type Category {
   category_idx: Int!
   category_name: String!
+  category_idx: Int!
+  category_name: String!
 }
 
 type Post {
@@ -26,6 +28,7 @@ type Post {
   image_idx: Int!
   post_title: String!
   post_content: String!
+  category: Category!
 }
 
 input image {
@@ -38,6 +41,11 @@ input post {
   image_idx: Int!
   post_title: String!
   post_content: String!
+}
+
+type returnType {
+  count: Int!
+  rows: [Post!]!
 }
 
 type User {

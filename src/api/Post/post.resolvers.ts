@@ -1,12 +1,21 @@
-import { Post, Image } from "../../db/index";
+import { Post, Image, Category } from "../../db/index";
 import { image, post } from "../../types/graph";
 
 export default {
   Query: {
     findPost: async (_: any, args: any) => {
       try {
-        const result = await Post.findAndCountAll({});
-        return result.rows;
+        const result = await Post.findAndCountAll({
+          attributes: ['post_idx', 'category_idx', 'user_idx', 'image_idx', 'post_title', 'post_content'],
+          include: [{   
+            model: Category,
+            required: true,
+            attributes: ['category_idx', 'category_name']
+          }]
+        });
+        console.log(result)
+        console.log(JSON.stringify(result))
+        return result;
       } catch {
         return false;
       }

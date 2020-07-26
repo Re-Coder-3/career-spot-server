@@ -35,4 +35,6 @@ export const Post = PostFactory(db);
 export const Image = ImageFactory(db);
 
 
+Post.belongsTo(Category, {foreignKey: 'category_idx'});
+
 // User.belongsTo(Post, {through: "post_user"});

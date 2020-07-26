@@ -1,5 +1,5 @@
 type Query {
-  findPost: [Post]!
+  findPost: returnType!
 }
 
 type Mutation {
@@ -12,7 +12,8 @@ type Post {
   user_idx: Int!
   image_idx: Int!
   post_title: String!
-  post_content: String!
+  post_content: String!,
+  category: Category!
 }
 
 input image{
@@ -25,4 +26,14 @@ input post{
   image_idx: Int!
   post_title: String!
   post_content: String!
+}
+
+type Category {
+  category_idx: Int!
+  category_name: String!
+}
+
+type returnType {
+  count: Int!
+  rows: [Post!]!
 }
