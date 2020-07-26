@@ -1,8 +1,8 @@
 import { Sequelize, Model, DataTypes, NOW } from "sequelize";
 import { config } from "./config";
 import { UserFactory } from "../model/User";
-import { PostFactory } from "../model/Post";
 import { CategoryFactory } from "../model/Category";
+import { PostFactory } from "../model/Post";
 
 
 const db = new Sequelize(config.database, config.username, config.password, {
@@ -29,8 +29,8 @@ db.authenticate()
   });
 
 export const User = UserFactory(db);
-export const Post = PostFactory(db);
 export const Category = CategoryFactory(db);
+export const Post = PostFactory(db);
 
-Post.hasOne(User);
+
 // User.belongsTo(Post, {through: "post_user"});

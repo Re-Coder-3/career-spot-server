@@ -1,5 +1,6 @@
 type Query {
   findCategory: [Category]!
+  findPost: [Post]!
   findUser: String
 }
 
@@ -15,6 +16,15 @@ type Mutation {
 type Category {
   category_idx: Int!
   category_name: String!
+}
+
+type Post {
+  post_idx: Int!
+  category_idx: Int!
+  user_idx: Int!
+  image_idx: Int!
+  post_title: String!
+  post_content: String!
 }
 
 type User {

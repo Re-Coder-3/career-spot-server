@@ -2,6 +2,9 @@ import { BuildOptions, DataTypes, Model, Sequelize } from "sequelize";
 
 export interface PostAttributes {
   post_idx: number;
+  category_idx: number;
+  user_idx: number;
+  image_idx: number;
   post_title: string;
   post_content: string;
   createdAt?: Date;
@@ -23,6 +26,21 @@ export function PostFactory(sequelize: Sequelize): PostStatic {
         autoIncrement: true,
         primaryKey: true,
       },
+      category_idx: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true,
+      },
+      user_idx: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true,
+      },
+      image_idx: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true,
+      },
       post_title: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -31,16 +49,7 @@ export function PostFactory(sequelize: Sequelize): PostStatic {
       post_content: {
         type: DataTypes.STRING,
         allowNull: false,
-      },
-      createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-      },
-      updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
+        unique: true,
       },
     },
     {
