@@ -2,7 +2,25 @@ type Query {
   findPost: [Post]!
 }
 
+type Mutation {
+  createPost(image: image!, post: post!): Post!
+}
+
 type Post {
+  post_idx: Int!
+  category_idx: Int!
+  user_idx: Int!
+  image_idx: Int!
+  post_title: String!
+  post_content: String!
+}
+
+input image{
+  image_idx: Int!,
+  image_url: String
+}
+
+input post{
   post_idx: Int!
   category_idx: Int!
   user_idx: Int!

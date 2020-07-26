@@ -8,6 +8,7 @@ type Mutation {
   createCategory(category_idx: Int!, category_name: String!): Category!
   deleteCategory(category_idx: Int!): Category!
   updateCategory(category_idx: Int!, category_name: String!): Category!
+  createPost(image: image!, post: post!): Post!
   createUser(user_name: String!, user_email: String!, user_password: String!): String
   deleteUser(user_idx: Int!): User!
   updateUser(user_idx: Int!, user_name: String!, user_email: String!, user_password: String!): User!
@@ -19,6 +20,20 @@ type Category {
 }
 
 type Post {
+  post_idx: Int!
+  category_idx: Int!
+  user_idx: Int!
+  image_idx: Int!
+  post_title: String!
+  post_content: String!
+}
+
+input image {
+  image_idx: Int!
+  image_url: String
+}
+
+input post {
   post_idx: Int!
   category_idx: Int!
   user_idx: Int!
