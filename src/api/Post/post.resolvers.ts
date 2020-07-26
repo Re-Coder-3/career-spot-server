@@ -3,6 +3,9 @@ import { image, post } from "../../types/graph";
 
 export default {
   Query: {
+    /**
+     * 모든 게시물 불러오기
+     */
     findPost: async (_: any, args: any) => {
       try {
         const result = await Post.findAndCountAll({
@@ -31,14 +34,15 @@ export default {
       }
     },
   },
-  /**
-   * 글 작성하기
-   */
   Mutation: {
+    /**
+     * 글 작성하기
+     */
     createPost: async (_:any, args: {image: image, post: post}) => {
       const post:any = args.post;
       const image:any = args.image
       try{
+        
         const image_result = await Image.create({
           image_idx: "",
           image_url: image.image_url
