@@ -1,4 +1,4 @@
-import { Post, Image, Category } from "../../db/index";
+import { Post, Image, Category, User } from "../../db/index";
 import { image, post } from "../../types/graph";
 
 export default {
@@ -7,14 +7,24 @@ export default {
       try {
         const result = await Post.findAndCountAll({
           attributes: ['post_idx', 'category_idx', 'user_idx', 'image_idx', 'post_title', 'post_content'],
-          include: [{   
-            model: Category,
-            required: true,
-            attributes: ['category_idx', 'category_name']
-          }]
+          include: [
+            {   
+              model: Category,
+              required: true,
+              attributes: ['category_name']
+            },
+            {   
+              model: User,
+              required: true,
+              attributes: ['user_name', 'user_email', 'user_password']
+            },
+            {   
+              model: Image,
+              required: true,
+              attributes: ['image_url']
+            }
+        ]
         });
-        console.log(result)
-        console.log(JSON.stringify(result))
         return result;
       } catch {
         return false;

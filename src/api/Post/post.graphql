@@ -13,7 +13,9 @@ type Post {
   image_idx: Int!
   post_title: String!
   post_content: String!,
-  category: Category!
+  category: Category!,
+  user: User!
+  image: Image!
 }
 
 input image{
@@ -36,4 +38,9 @@ type Category {
 type returnType {
   count: Int!
   rows: [Post!]!
+}
+
+type Image {
+  image_idx: Int!
+  image_url: String!
 }

@@ -39,11 +39,19 @@ export function PostFactory(sequelize: Sequelize): PostStatic {
         type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
+        references: {
+          model: 'user',
+          key: 'user_idx'
+        }
       },
       image_idx: {
         type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
+        references: {
+          model: 'image',
+          key: 'image_idx'
+        }
       },
       post_title: {
         type: DataTypes.STRING,

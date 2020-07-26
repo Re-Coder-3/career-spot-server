@@ -29,6 +29,8 @@ type Post {
   post_title: String!
   post_content: String!
   category: Category!
+  user: User!
+  image: Image!
 }
 
 input image {
@@ -52,5 +54,13 @@ type User {
   user_idx: Int!
   user_name: String!
   user_email: String!
+  user_idx: Int!
+  user_name: String!
+  user_email: String!
   user_password: String!
+}
+
+type Image {
+  image_idx: Int!
+  image_url: String!
 }
