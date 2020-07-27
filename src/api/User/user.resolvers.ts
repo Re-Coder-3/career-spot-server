@@ -20,16 +20,25 @@ export default {
 
   Mutation: {
     createUser: async (_: any, args: CreateUserMutationArgs) => {
-      console.log(args);
       try {
         const { user_name, user_email, user_password } = args;
         const hashedPassword = await bcrypt.hash(user_password, 10);
-        const nameCheck = User.findOne({
+        const nameCheck = await User.findOne({
           where: {
             user_name,
           },
         });
-        console.log(nameCheck);
+        const emailCheck = await User.findOne({
+          where: {
+            user_email,
+          },
+        });
+        if (nameCheck) {
+          return 'nameDuplicated';
+        }
+        if (emailCheck) {
+          return 'emailDuplicated';
+        }
         await User.create({
           user_idx: '',
           user_name,
