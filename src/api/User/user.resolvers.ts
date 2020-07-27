@@ -1,17 +1,17 @@
-import { User } from "../../db/index";
+import * as bcrypt from 'bcryptjs';
+import { User } from '../../db/index';
 import {
   CreateUserMutationArgs,
   UpdateUserMutationArgs,
   DeleteUserMutationArgs,
-} from "../../types/graph";
+} from '../../types/graph';
 
 export default {
   Query: {
-    findUser: async (_: any, args: any) => {
-      const { id } = args;
+    findAllUser: async () => {
       try {
         const result = await User.findAndCountAll({});
-        return result.rows;
+        return result;
       } catch {
         return false;
       }
@@ -20,19 +20,35 @@ export default {
 
   Mutation: {
     createUser: async (_: any, args: CreateUserMutationArgs) => {
-      console.log(args);
       try {
-        const user = await User.create({
-          user_idx: "",
-          user_name: args.user_name,
-          user_email: args.user_email,
-          user_password: args.user_password,
+        const { user_name, user_email, user_password } = args;
+        const hashedPassword = await bcrypt.hash(user_password, 10);
+        const nameCheck = await User.findOne({
+          where: {
+            user_name,
+          },
         });
-        console.log(user);
-        return "true";
+        const emailCheck = await User.findOne({
+          where: {
+            user_email,
+          },
+        });
+        if (nameCheck) {
+          return 'nameDuplicated';
+        }
+        if (emailCheck) {
+          return 'emailDuplicated';
+        }
+        await User.create({
+          user_idx: '',
+          user_name,
+          user_email,
+          user_password: hashedPassword,
+        });
+        return 'Success';
       } catch (e) {
         console.log(e);
-        return "false";
+        return 'Fail';
       }
     },
 

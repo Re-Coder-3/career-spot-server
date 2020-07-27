@@ -1,7 +1,7 @@
 type Query {
   findCategory: [Category]!
   findPost: returnType!
-  findUser: String
+  findAllUser: UserReturnType!
 }
 
 type Mutation {
@@ -9,7 +9,7 @@ type Mutation {
   deleteCategory(category_idx: Int!): Category!
   updateCategory(category_idx: Int!, category_name: String!): Category!
   createPost(image: image!, post: post!): Post!
-  createUser(user_name: String!, user_email: String!, user_password: String!): String
+  createUser(user_name: String!, user_email: String!, user_password: String!): String!
   deleteUser(user_idx: Int!): User!
   updateUser(user_idx: Int!, user_name: String!, user_email: String!, user_password: String!): User!
 }
@@ -51,6 +51,11 @@ type returnType {
 type Image {
   image_idx: Int!
   image_url: String!
+}
+
+type UserReturnType {
+  count: Int!
+  rows: [User!]!
 }
 
 type User {
