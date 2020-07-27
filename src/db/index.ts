@@ -1,7 +1,10 @@
 import { Sequelize, Model, DataTypes, NOW } from "sequelize";
 import { config } from "./config";
 import { UserFactory } from "../model/User";
+import { CategoryFactory } from "../model/Category";
 import { PostFactory } from "../model/Post";
+import { ImageFactory } from "../model/Img";
+
 
 const db = new Sequelize(config.database, config.username, config.password, {
   host: config.host,
@@ -27,7 +30,13 @@ db.authenticate()
   });
 
 export const User = UserFactory(db);
+export const Category = CategoryFactory(db);
 export const Post = PostFactory(db);
+export const Image = ImageFactory(db);
 
-User.hasMany(Post);
-Post.belongsToMany(User, { through: "user_post" });
+
+Post.belongsTo(Category, {foreignKey: 'category_idx'});
+Post.belongsTo(User, {foreignKey: 'user_idx'});
+Post.belongsTo(Image, {foreignKey: 'image_idx'});
+
+// User.belongsTo(Post, {through: "post_user"});

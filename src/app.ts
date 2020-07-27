@@ -6,7 +6,6 @@ import schema from "./schema";
 import "./db";
 
 const schema1: any = schema;
-
 const server = new GraphQLServer({
   schema: schema1,
 });
