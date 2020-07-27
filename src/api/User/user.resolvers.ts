@@ -1,17 +1,16 @@
-import { User } from "../../db/index";
+import { User } from '../../db/index';
 import {
   CreateUserMutationArgs,
   UpdateUserMutationArgs,
   DeleteUserMutationArgs,
-} from "../../types/graph";
+} from '../../types/graph';
 
 export default {
   Query: {
-    findUser: async (_: any, args: any) => {
-      const { id } = args;
+    findAllUser: async () => {
       try {
         const result = await User.findAndCountAll({});
-        return result.rows;
+        return result;
       } catch {
         return false;
       }
@@ -23,16 +22,16 @@ export default {
       console.log(args);
       try {
         const user = await User.create({
-          user_idx: "",
+          user_idx: '',
           user_name: args.user_name,
           user_email: args.user_email,
           user_password: args.user_password,
         });
         console.log(user);
-        return "true";
+        return 'true';
       } catch (e) {
         console.log(e);
-        return "false";
+        return 'false';
       }
     },
 
