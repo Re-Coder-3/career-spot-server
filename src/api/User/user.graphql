@@ -3,7 +3,7 @@ type Query {
 }
 
 type Mutation {
-  createUser(user_name: String!, user_email: String!, user_password: String!): String
+  createUser(user_name: String!, user_email: String!, user_password: String!): String!
   deleteUser(user_idx: Int!): User!
   updateUser(user_idx: Int!, user_name: String!, user_email: String!, user_password: String!): User!
 }
