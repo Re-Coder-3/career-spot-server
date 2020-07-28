@@ -61,17 +61,14 @@ export default {
             user_email,
           },
         });
-
-        if (user) {
-          const pwd = await bcrypt.compare(user_password, user.user_password);
-          if (pwd) {
-            return 'Success';
-          } else {
-            return 'WrongPwd';
-          }
-        } else {
+        if (!user) {
           return 'UserNotFound';
         }
+        const pwd = await bcrypt.compare(user_password, user.user_password);
+        if (!pwd) {
+          return 'WrongPwd';
+        }
+        return 'Success';
       } catch (e) {
         console.log(e);
         return 'ServerErr';
