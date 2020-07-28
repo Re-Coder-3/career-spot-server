@@ -2,6 +2,7 @@ type Query {
   findCategory: [Category]!
   findPost: returnType!
   findAllUser: UserReturnType!
+  checkJwt: String
 }
 
 type Mutation {
@@ -10,6 +11,7 @@ type Mutation {
   updateCategory(category_idx: Int!, category_name: String!): Category!
   createPost(image: image!, post: post!): Post!
   createUser(user_name: String!, user_email: String!, user_password: String!): String!
+  loginUser(user_email: String!, user_password: String!): String!
   deleteUser(user_idx: Int!): User!
   updateUser(user_idx: Int!, user_name: String!, user_email: String!, user_password: String!): User!
 }
