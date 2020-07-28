@@ -1,4 +1,5 @@
-import * as bcrypt from 'bcryptjs';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import { User } from '../../db/index';
 import {
   CreateUserMutationArgs,
@@ -6,6 +7,7 @@ import {
   DeleteUserMutationArgs,
   LoginUserMutationArgs,
 } from '../../types/graph';
+import { Context } from 'graphql-yoga/dist/types';
 
 export default {
   Query: {
@@ -17,11 +19,19 @@ export default {
         return false;
       }
     },
+    checkJwt: async (_: any, __: any, context: Context) => {
+      const token = context.request.headers.authorization;
+      const SECRET_KEY = process.env.JWT_SECRET_KEY!;
+      const decodedId = jwt.verify(token, SECRET_KEY);
+      console.log(decodedId);
+      return 'hi';
+    },
   },
 
   Mutation: {
     createUser: async (_: any, args: CreateUserMutationArgs) => {
       try {
+        // console.log(context.request.headers);
         const { user_name, user_email, user_password } = args;
         const hashedPassword = await bcrypt.hash(user_password, 10);
         const nameCheck = await User.findOne({
@@ -53,7 +63,7 @@ export default {
       }
     },
 
-    loginUser: async (_: any, args: LoginUserMutationArgs) => {
+    loginUser: async (_: any, args: LoginUserMutationArgs, context: Context) => {
       try {
         const { user_email, user_password } = args;
         const user = await User.findOne({
@@ -68,7 +78,13 @@ export default {
         if (!pwd) {
           return 'WrongPwd';
         }
-        return 'Success';
+        const SECRET_KEY = process.env.JWT_SECRET_KEY!;
+        const jwtToken = jwt.sign(args, SECRET_KEY, {
+          expiresIn: '4h',
+        });
+        console.log(jwtToken);
+
+        return jwtToken;
       } catch (e) {
         console.log(e);
         return 'ServerErr';
