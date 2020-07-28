@@ -4,6 +4,7 @@ import {
   CreateUserMutationArgs,
   UpdateUserMutationArgs,
   DeleteUserMutationArgs,
+  LoginUserMutationArgs,
 } from '../../types/graph';
 
 export default {
@@ -49,6 +50,31 @@ export default {
       } catch (e) {
         console.log(e);
         return 'Fail';
+      }
+    },
+
+    loginUser: async (_: any, args: LoginUserMutationArgs) => {
+      try {
+        const { user_email, user_password } = args;
+        const user = await User.findOne({
+          where: {
+            user_email,
+          },
+        });
+
+        if (user) {
+          const pwd = await bcrypt.compare(user_password, user.user_password);
+          if (pwd) {
+            return 'Success';
+          } else {
+            return 'WrongPwd';
+          }
+        } else {
+          return 'UserNotFound';
+        }
+      } catch (e) {
+        console.log(e);
+        return 'ServerErr';
       }
     },
 
