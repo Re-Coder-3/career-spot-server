@@ -1,10 +1,11 @@
-import { BuildOptions, DataTypes, Model, Sequelize } from "sequelize";
+import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
 
 export interface UserAttributes {
   user_idx: number | string;
   user_name: string;
   user_email: string;
   user_password: string;
+  user_profile_image: number | string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -17,7 +18,7 @@ export type UserStatic = typeof Model & {
 
 export function UserFactory(sequelize: Sequelize): UserStatic {
   return <UserStatic>sequelize.define(
-    "user",
+    'user',
     {
       user_idx: {
         type: DataTypes.INTEGER,
@@ -37,6 +38,14 @@ export function UserFactory(sequelize: Sequelize): UserStatic {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      user_profile_image: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'image',
+          key: 'image_idx',
+        },
+      },
       createdAt: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -50,6 +59,6 @@ export function UserFactory(sequelize: Sequelize): UserStatic {
     },
     {
       freezeTableName: true,
-    }
+    },
   );
 }

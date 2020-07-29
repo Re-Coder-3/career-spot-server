@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { User } from '../../db/index';
+import { User, Image } from '../../db/index';
 import {
   CreateUserMutationArgs,
   UpdateUserMutationArgs,
@@ -54,6 +54,7 @@ export default {
           user_name,
           user_email,
           user_password: hashedPassword,
+          user_profile_image: '',
         });
         return 'Success';
       } catch (e) {
@@ -90,21 +91,22 @@ export default {
       }
     },
 
-    // updateUser: async (_: any, args: UpdateUserMutationArgs) => {
-    //   let result: any;
-    //   try {
-    //     result = await User.update(args, {
-    //       where: {
-    //         user_idx: args.user_idx,
-    //       },
-    //     });
-    //   } catch (e) {
-    //     console.log(e);
-    //     throw e;
-    //   }
-    //   console.log(result);
-    //   return args;
-    // },
+    updateUser: async (_: any, args: UpdateUserMutationArgs, context: Context) => {
+      const user = getUser(context);
+      const user_idx = user?.user_idx;
+      // let image_url:any = args.image_url;
+      try {
+        const { image_url }: string | any = args!;
+        const image_result = await Image.create({
+          image_idx: '',
+          image_url: image_url,
+        });
+        await User.update({ user_profile_image: image_result.image_idx }, { where: { user_idx } });
+        return 'Success';
+      } catch (e) {
+        return 'Fail';
+      }
+    },
 
     // deleteUser: async (_: any, args: DeleteUserMutationArgs) => {
     //   let result: any;
