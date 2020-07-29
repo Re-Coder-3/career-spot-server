@@ -42,4 +42,7 @@ Post.belongsTo(Category, {foreignKey: 'category_idx'});
 Post.belongsTo(User, {foreignKey: 'user_idx'});
 Post.belongsTo(Image, {foreignKey: 'image_idx'});
 
+Scrap.belongsTo(Post, {foreignKey: 'post_idx'});
+Scrap.belongsTo(User, {foreignKey: 'user_idx'});
+
 // User.belongsTo(Post, {through: "post_user"});

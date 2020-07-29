@@ -2,6 +2,7 @@ type Query {
   findCategory: [Category]!
   findPost: returnType!
   findScrap: [Scrap]!
+  findScrapForUser: PostreturnType!
   findAllUser: UserReturnType!
   checkUser: String
 }
@@ -50,8 +51,6 @@ input post {
 type returnType {
   count: Int!
   rows: [Post!]!
-  count: Int!
-  rows: [Post!]!
 }
 
 type Image {
@@ -68,6 +67,11 @@ type Scrap {
 input scrap {
   user_idx: Int!
   post_idx: Int!
+}
+
+type PostreturnType {
+  count: Int!
+  rows: [Scrap!]!
 }
 
 type UserReturnType {

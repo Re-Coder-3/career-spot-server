@@ -1,5 +1,6 @@
 type Query {
   findScrap: [Scrap]!
+  findScrapForUser: PostreturnType!
 }
 
 type Mutation {
@@ -10,6 +11,8 @@ type Scrap {
   scrap_idx: Int!
   user_idx: Int!
   post_idx: Int!
+  post: Post!,
+  user: User!
 }
 
 input scrap {
@@ -17,7 +20,7 @@ input scrap {
   post_idx: Int!
 }
 
-type returnType {
+type PostreturnType {
   count: Int!
-  rows: [Post!]!
+  rows: [Scrap!]!
 }
