@@ -32,9 +32,10 @@ db.authenticate()
 
 export const User = UserFactory(db);
 export const Category = CategoryFactory(db);
-export const Scrap = ScrapFactory(db);
 export const Post = PostFactory(db);
 export const Image = ImageFactory(db);
+export const Scrap = ScrapFactory(db);
+
 
 
 Post.belongsTo(Category, {foreignKey: 'category_idx'});

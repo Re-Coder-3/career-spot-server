@@ -6,6 +6,7 @@ export default {
       const { id } = args;
       try {
         const result = await Scrap.findAndCountAll({});
+        console.log(result)
         return result.rows;
       } catch {
         return false;

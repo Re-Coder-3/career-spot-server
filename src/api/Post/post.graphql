@@ -1,6 +1,5 @@
 type Query {
   findPost: returnType!
-  findImage: [Scrap]!
 }
 
 type Mutation {
@@ -42,8 +41,3 @@ type Image {
   image_url: String!
 }
 
-type Scrap {
-  scrap_idx: Int!
-  user_idx: Int!
-  post_idx: Int!
-}

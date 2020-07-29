@@ -4,8 +4,6 @@ export interface ScrapAttributes {
   scrap_idx: number;
   user_idx: number;
   post_idx: number;
-  createdAt?: Date;
-  updatedAt?: Date;
 }
 export interface ScrapModel extends Model<ScrapAttributes>, ScrapAttributes {}
 export class Scrap extends Model<ScrapModel, ScrapAttributes> {}

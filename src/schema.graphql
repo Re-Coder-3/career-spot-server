@@ -1,5 +1,6 @@
 type Query {
   findCategory: [Category]!
+  findHashtag: [Hashtag]!
   findPost: returnType!
   findImage: [Scrap]!
   findScrap: [Scrap]!
@@ -19,6 +20,11 @@ type Mutation {
 type Category {
   category_idx: Int!
   category_name: String!
+}
+
+type Hashtag {
+  hashtag_idx: Int!
+  hashtag_name: String!
 }
 
 type Post {

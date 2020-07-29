@@ -1,7 +1,5 @@
 import { Post, Image, Category, User } from "../../db/index";
 import { image, post } from "../../types/graph";
-import { Scrap } from "../../model/Scrap";
-
 export default {
   Query: {
     /**
@@ -34,9 +32,6 @@ export default {
         return false;
       }
     },
-    findImage: async (_: any, args: any) => {
-      await Scrap.findAndCountAll({})    
-    }
   },
   Mutation: {
     /**
