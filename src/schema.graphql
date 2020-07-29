@@ -1,6 +1,8 @@
 type Query {
   findCategory: [Category]!
   findPost: returnType!
+  findImage: [Scrap]!
+  findScrap: [Scrap]!
   findUser: String
 }
 
@@ -51,6 +53,15 @@ type returnType {
 type Image {
   image_idx: Int!
   image_url: String!
+}
+
+type Scrap {
+  scrap_idx: Int!
+  user_idx: Int!
+  post_idx: Int!
+  scrap_idx: Int!
+  user_idx: Int!
+  post_idx: Int!
 }
 
 type User {

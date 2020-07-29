@@ -1,0 +1,9 @@
+type Query {
+  findScrap: [Scrap]!
+}
+
+type Scrap {
+  scrap_idx: Int!
+  user_idx: Int!
+  post_idx: Int!
+}
