@@ -1,7 +1,7 @@
 import { BuildOptions, DataTypes, Model, Sequelize } from "sequelize";
 
 export interface ScrapAttributes {
-  scrap_idx: number;
+  scrap_idx: number | string;
   user_idx: number;
   post_idx: number;
 }

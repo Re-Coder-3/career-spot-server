@@ -2,8 +2,22 @@ type Query {
   findScrap: [Scrap]!
 }
 
+type Mutation {
+  createScrap(scrap: scrap!): Scrap!
+}
+
 type Scrap {
   scrap_idx: Int!
   user_idx: Int!
   post_idx: Int!
+}
+
+input scrap {
+  user_idx: Int!
+  post_idx: Int!
+}
+
+type returnType {
+  count: Int!
+  rows: [Post!]!
 }

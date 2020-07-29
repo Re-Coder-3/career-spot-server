@@ -1,8 +1,6 @@
 type Query {
   findCategory: [Category]!
-  findHashtag: [Hashtag]!
   findPost: returnType!
-  findImage: [Scrap]!
   findScrap: [Scrap]!
   findUser: String
 }
@@ -12,6 +10,7 @@ type Mutation {
   deleteCategory(category_idx: Int!): Category!
   updateCategory(category_idx: Int!, category_name: String!): Category!
   createPost(image: image!, post: post!): Post!
+  createScrap(scrap: scrap!): Scrap!
   createUser(user_name: String!, user_email: String!, user_password: String!): String
   deleteUser(user_idx: Int!): User!
   updateUser(user_idx: Int!, user_name: String!, user_email: String!, user_password: String!): User!
@@ -20,11 +19,6 @@ type Mutation {
 type Category {
   category_idx: Int!
   category_name: String!
-}
-
-type Hashtag {
-  hashtag_idx: Int!
-  hashtag_name: String!
 }
 
 type Post {
@@ -54,6 +48,8 @@ input post {
 type returnType {
   count: Int!
   rows: [Post!]!
+  count: Int!
+  rows: [Post!]!
 }
 
 type Image {
@@ -65,7 +61,9 @@ type Scrap {
   scrap_idx: Int!
   user_idx: Int!
   post_idx: Int!
-  scrap_idx: Int!
+}
+
+input scrap {
   user_idx: Int!
   post_idx: Int!
 }
