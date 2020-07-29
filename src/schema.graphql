@@ -2,7 +2,7 @@ type Query {
   findCategory: [Category]!
   findPost: returnType!
   findAllUser: UserReturnType!
-  checkJwt: String
+  checkUser: String
 }
 
 type Mutation {
