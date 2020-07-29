@@ -94,14 +94,27 @@ export default {
     updateUser: async (_: any, args: UpdateUserMutationArgs, context: Context) => {
       const user = getUser(context);
       const user_idx = user?.user_idx;
-      // let image_url:any = args.image_url;
       try {
-        const { image_url }: string | any = args!;
-        const image_result = await Image.create({
-          image_idx: '',
-          image_url: image_url,
+        const user = await User.findOne({
+          where: { user_idx },
         });
-        await User.update({ user_profile_image: image_result.image_idx }, { where: { user_idx } });
+        const image_idx = user?.user_profile_image;
+        if (image_idx) {
+          await Image.destroy({
+            where: {
+              image_idx,
+            },
+          });
+          const { image_url }: string | any = args!;
+          const image_result = await Image.create({
+            image_idx: '',
+            image_url: image_url,
+          });
+          await User.update(
+            { user_profile_image: image_result.image_idx },
+            { where: { user_idx } },
+          );
+        }
         return 'Success';
       } catch (e) {
         return 'Fail';
