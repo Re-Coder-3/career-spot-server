@@ -8,7 +8,10 @@ export const getUser = (context: Context) => {
       headers: { authorization: token },
     },
   } = context;
-  const SECRET_KEY = process.env.JWT_SECRET_KEY!;
-  const user = jwt.verify(token, SECRET_KEY);
-  return user;
+  if (token) {
+    const SECRET_KEY = process.env.JWT_SECRET_KEY!;
+    const user = jwt.verify(token, SECRET_KEY);
+    return user;
+  }
+  return false;
 };
