@@ -1,10 +1,9 @@
 import { Post, Image, Category, User } from "../../db/index";
 import { image, post } from "../../types/graph";
-
 export default {
   Query: {
     /**
-     * 모든 게시물 불러오기
+     * 모든 게시물 불러오기 (카테고리별 불러오기, 해시태그별 불러오기, )
      */
     findPost: async (_: any, args: any) => {
       try {
@@ -42,7 +41,7 @@ export default {
       const post:any = args.post;
       const image:any = args.image
       try{
-        
+
         const image_result = await Image.create({
           image_idx: "",
           image_url: image.image_url

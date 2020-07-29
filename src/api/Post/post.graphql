@@ -40,3 +40,4 @@ type Image {
   image_idx: Int!
   image_url: String!
 }
+

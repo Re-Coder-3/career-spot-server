@@ -4,6 +4,7 @@ import { UserFactory } from "../model/User";
 import { CategoryFactory } from "../model/Category";
 import { PostFactory } from "../model/Post";
 import { ImageFactory } from "../model/Img";
+import { ScrapFactory } from "../model/Scrap";
 
 
 const db = new Sequelize(config.database, config.username, config.password, {
@@ -33,6 +34,8 @@ export const User = UserFactory(db);
 export const Category = CategoryFactory(db);
 export const Post = PostFactory(db);
 export const Image = ImageFactory(db);
+export const Scrap = ScrapFactory(db);
+
 
 
 Post.belongsTo(Category, {foreignKey: 'category_idx'});
