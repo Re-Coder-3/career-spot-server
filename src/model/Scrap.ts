@@ -25,11 +25,19 @@ export function ScrapFactory(sequelize: Sequelize): ScrapStatic {
         type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
+        references: {
+          model: 'user',
+          key: 'user_idx'
+        }
       },
       post_idx: {
         type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
+        references: {
+          model: 'post',
+          key: 'post_idx'
+        }
       },
     },
     {
