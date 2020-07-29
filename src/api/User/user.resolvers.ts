@@ -8,6 +8,7 @@ import {
   LoginUserMutationArgs,
 } from '../../types/graph';
 import { Context } from 'graphql-yoga/dist/types';
+import { getUser } from '../../utils';
 
 export default {
   Query: {
@@ -19,11 +20,9 @@ export default {
         return false;
       }
     },
-    checkJwt: async (_: any, __: any, context: Context) => {
-      const token = context.request.headers.authorization;
-      const SECRET_KEY = process.env.JWT_SECRET_KEY!;
-      const decodedId = jwt.verify(token, SECRET_KEY);
-      console.log(decodedId);
+    checkUser: async (_: any, __: any, context: Context) => {
+      const user = getUser(context);
+      console.log(user);
       return 'hi';
     },
   },
@@ -79,7 +78,7 @@ export default {
           return 'WrongPwd';
         }
         const SECRET_KEY = process.env.JWT_SECRET_KEY!;
-        const jwtToken = jwt.sign(args, SECRET_KEY, {
+        const jwtToken = jwt.sign({ ...args, user_idx: user.user_idx }, SECRET_KEY, {
           expiresIn: '4h',
         });
         console.log(jwtToken);
