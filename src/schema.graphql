@@ -2,13 +2,14 @@ type Query {
   findCategory: [Category]!
   findPost: returnType!
   findAllUser: UserReturnType!
-  checkJwt: String
+  checkUser: String
 }
 
 type Mutation {
   createCategory(category_idx: Int!, category_name: String!): Category!
   deleteCategory(category_idx: Int!): Category!
   updateCategory(category_idx: Int!, category_name: String!): Category!
+  singleUpload(file: Upload!): Boolean!
   createPost(image: image!, post: post!): Post!
   createUser(user_name: String!, user_email: String!, user_password: String!): String!
   loginUser(user_email: String!, user_password: String!): String!
@@ -20,6 +21,8 @@ type Category {
   category_idx: Int!
   category_name: String!
 }
+
+scalar Upload
 
 type Post {
   post_idx: Int

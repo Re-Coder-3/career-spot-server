@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
 import { Context } from 'graphql-yoga/dist/types';
 
 export const getUser = (context: Context) => {
