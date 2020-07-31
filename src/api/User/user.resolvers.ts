@@ -20,6 +20,7 @@ export default {
         return false;
       }
     },
+
     checkUser: async (_: any, __: any, context: Context) => {
       const user = getUser(context);
       console.log(user);
@@ -79,9 +80,13 @@ export default {
           return 'WrongPwd';
         }
         const SECRET_KEY = process.env.JWT_SECRET_KEY!;
-        const jwtToken = jwt.sign({ ...args, user_idx: user.user_idx }, SECRET_KEY, {
-          expiresIn: '4h',
-        });
+        const jwtToken = jwt.sign(
+          { user_email: user_email, user_idx: user.user_idx, user_name: user.user_name },
+          SECRET_KEY,
+          {
+            expiresIn: '4h',
+          },
+        );
         console.log(jwtToken);
 
         return jwtToken;
