@@ -4,6 +4,7 @@ import { GraphQLServer } from 'graphql-yoga';
 import { ContextParameters } from 'graphql-yoga/dist/types';
 import logger from 'morgan';
 import multer from 'multer';
+import helmet from 'helmet';
 import schema from './schema';
 import './db';
 
@@ -16,6 +17,7 @@ const server = new GraphQLServer({
 const upload = multer({ dest: 'uploads/' });
 
 server.express.use(logger('dev'));
+server.express.use(helmet());
 server.express.post('/api/upload', upload.single('image'), (req: any, res: any) => {
   const {
     file: { path },
