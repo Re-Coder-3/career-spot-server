@@ -74,6 +74,7 @@ export interface Mutation {
   updateCategory: Category;
   createPost: Post;
   createScrap: Scrap;
+  kakaoAuth: string;
   createUser: string;
   loginUser: string;
   deleteUser: User;
@@ -102,6 +103,10 @@ export interface CreatePostMutationArgs {
 
 export interface CreateScrapMutationArgs {
   scrap: scrap;
+}
+
+export interface KakaoAuthMutationArgs {
+  code: string;
 }
 
 export interface CreateUserMutationArgs {
