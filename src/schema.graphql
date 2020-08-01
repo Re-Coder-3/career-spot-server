@@ -11,10 +11,11 @@ type Mutation {
   createCategory(category_idx: Int!, category_name: String!): Category!
   deleteCategory(category_idx: Int!): Category!
   updateCategory(category_idx: Int!, category_name: String!): Category!
+  singleUpload(file: Upload!): Boolean!
   createPost(image: image!, post: post!, hashtag: hashtag): Post!
   createScrap(scrap: scrap!): Scrap!
   kakaoAuth(code: String!): String!
-  createUser(user_name: String!, user_email: String!, user_password: String!): String!
+  createUser(user_name: String!, user_email: String!, user_password: String!): createUserReturnType!
   loginUser(user_email: String!, user_password: String!): String!
   deleteUser(user_idx: Int!): User!
   updateUser(image_url: String): String!
@@ -24,6 +25,8 @@ type Category {
   category_idx: Int!
   category_name: String!
 }
+
+scalar Upload
 
 type Post {
   post_idx: Int
@@ -97,4 +100,9 @@ type User {
   user_name: String!
   user_email: String!
   user_password: String!
+}
+
+type createUserReturnType {
+  status: Int!
+  error: String
 }
