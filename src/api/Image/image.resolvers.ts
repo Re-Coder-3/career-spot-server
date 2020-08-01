@@ -13,8 +13,8 @@ export default {
   Mutation: {
     singleUpload: async (_: any, args: SingleUploadMutationArgs) => {
       const { stream, filename } = await args.file;
-      const a = await storeUpload({ stream, filename });
-      console.log(a);
+      await storeUpload({ stream, filename });
+      console.log(stream, filename);
       return true;
     },
   },

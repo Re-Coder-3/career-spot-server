@@ -4,7 +4,7 @@ import { User, Image } from '../../db/index';
 import {
   CreateUserMutationArgs,
   UpdateUserMutationArgs,
-  DeleteUserMutationArgs,
+  createUserReturnType,
   LoginUserMutationArgs,
 } from '../../types/graph';
 import { Context } from 'graphql-yoga/dist/types';
@@ -21,7 +21,7 @@ export default {
       }
     },
 
-    checkUser: async (_: any, __: any, context: Context) => {
+    checkUser: async (_: any, __: any, context: Context): Promise<string> => {
       const user = getUser(context);
       console.log(user);
       return 'hi';
@@ -29,7 +29,7 @@ export default {
   },
 
   Mutation: {
-    createUser: async (_: any, args: CreateUserMutationArgs) => {
+    createUser: async (_: any, args: CreateUserMutationArgs): Promise<createUserReturnType> => {
       try {
         // console.log(context.request.headers);
         const { user_name, user_email, user_password } = args;
@@ -45,10 +45,17 @@ export default {
           },
         });
         if (nameCheck) {
-          return 'nameDuplicated';
+          // return 'nameDuplicated';
+          return {
+            status: 400,
+            error: 'nameDuplicated',
+          };
         }
         if (emailCheck) {
-          return 'emailDuplicated';
+          return {
+            status: 400,
+            error: 'emailDuplicated',
+          };
         }
         await User.create({
           user_idx: '',
@@ -57,14 +64,20 @@ export default {
           user_password: hashedPassword,
           user_profile_image: '',
         });
-        return 'Success';
+        return {
+          status: 200,
+          error: null,
+        };
       } catch (e) {
         console.log(e);
-        return 'Fail';
+        return {
+          status: 400,
+          error: 'serverError',
+        };
       }
     },
 
-    loginUser: async (_: any, args: LoginUserMutationArgs, context: Context) => {
+    loginUser: async (_: any, args: LoginUserMutationArgs, context: Context): Promise<string> => {
       try {
         const { user_email, user_password } = args;
         const user = await User.findOne({
@@ -73,6 +86,11 @@ export default {
           },
         });
         if (!user) {
+          // return {
+          //   status:200,
+          //   error: "UserNotFound",
+          //   data:""
+          // }
           return 'UserNotFound';
         }
         const pwd = await bcrypt.compare(user_password, user.user_password);
@@ -96,7 +114,7 @@ export default {
       }
     },
 
-    updateUser: async (_: any, args: UpdateUserMutationArgs, context: Context) => {
+    updateUser: async (_: any, args: UpdateUserMutationArgs, context: Context): Promise<string> => {
       const user = getUser(context);
       const user_idx = user?.user_idx;
       try {

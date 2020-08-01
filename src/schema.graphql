@@ -15,7 +15,7 @@ type Mutation {
   createPost(image: image!, post: post!): Post!
   createScrap(scrap: scrap!): Scrap!
   kakaoAuth(code: String!): String!
-  createUser(user_name: String!, user_email: String!, user_password: String!): String!
+  createUser(user_name: String!, user_email: String!, user_password: String!): createUserReturnType!
   loginUser(user_email: String!, user_password: String!): String!
   deleteUser(user_idx: Int!): User!
   updateUser(image_url: String): String!
@@ -90,4 +90,9 @@ type User {
   user_name: String!
   user_email: String!
   user_password: String!
+}
+
+type createUserReturnType {
+  status: Int!
+  error: String
 }
