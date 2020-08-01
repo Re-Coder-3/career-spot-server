@@ -13,6 +13,7 @@ type Mutation {
   updateCategory(category_idx: Int!, category_name: String!): Category!
   createPost(image: image!, post: post!, hashtag: hashtag): Post!
   createScrap(scrap: scrap!): Scrap!
+  kakaoAuth(code: String!): String!
   createUser(user_name: String!, user_email: String!, user_password: String!): String!
   loginUser(user_email: String!, user_password: String!): String!
   deleteUser(user_idx: Int!): User!
