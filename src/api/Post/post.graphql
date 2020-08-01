@@ -3,7 +3,7 @@ type Query {
 }
 
 type Mutation {
-  createPost(image: image!, post: post!): Post!
+  createPost(image: image!, post: post!, hashtag: hashtag): Post!
 }
 
 type Post {
@@ -12,10 +12,11 @@ type Post {
   user_idx: Int!
   image_idx: Int!
   post_title: String!
-  post_content: String!,
-  category: Category!,
+  post_content: String!
+  category: Category!
   user: User!
   image: Image!
+  hashtag: Hashtag!
 }
 
 input image{
@@ -30,6 +31,9 @@ input post{
   post_content: String!
 }
 
+input hashtag{
+  hashtag_name: String
+}
 
 type returnType {
   count: Int!
@@ -39,5 +43,10 @@ type returnType {
 type Image {
   image_idx: Int!
   image_url: String!
+}
+
+type Hashtag {
+  hashtag_idx: Int!
+  hashtag_name: String!
 }
 
