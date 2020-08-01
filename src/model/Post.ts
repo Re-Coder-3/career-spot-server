@@ -5,6 +5,7 @@ export interface PostAttributes {
   category_idx: number;
   user_idx: number;
   image_idx: number;
+  hashtag_idx: number;
   post_title: string;
   post_content: string;
   createdAt?: Date;
@@ -51,6 +52,15 @@ export function PostFactory(sequelize: Sequelize): PostStatic {
         references: {
           model: 'image',
           key: 'image_idx'
+        }
+      },
+      hashtag_idx: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true,
+        references: {
+          model: 'hashtag',
+          key: 'hashtag_idx'
         }
       },
       post_title: {
