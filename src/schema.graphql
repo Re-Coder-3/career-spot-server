@@ -1,20 +1,95 @@
 type Query {
   findCategory: [Category]!
-  findUser: String
+  findPost: returnType!
+  findScrap: [Scrap]!
+  findScrapForUser: PostreturnType!
+  findAllUser: UserReturnType!
+  checkUser: String
 }
 
 type Mutation {
   createCategory(category_idx: Int!, category_name: String!): Category!
   deleteCategory(category_idx: Int!): Category!
   updateCategory(category_idx: Int!, category_name: String!): Category!
-  createUser(user_name: String!, user_email: String!, user_password: String!): String
+  createPost(image: image!, post: post!, hashtag: hashtag): Post!
+  createScrap(scrap: scrap!): Scrap!
+  kakaoAuth(code: String!): String!
+  createUser(user_name: String!, user_email: String!, user_password: String!): String!
+  loginUser(user_email: String!, user_password: String!): String!
   deleteUser(user_idx: Int!): User!
-  updateUser(user_idx: Int!, user_name: String!, user_email: String!, user_password: String!): User!
+  updateUser(image_url: String): String!
 }
 
 type Category {
   category_idx: Int!
   category_name: String!
+}
+
+type Post {
+  post_idx: Int
+  category_idx: Int!
+  user_idx: Int!
+  image_idx: Int!
+  post_title: String!
+  post_content: String!
+  category: Category!
+  user: User!
+  image: Image!
+  hashtag: Hashtag!
+}
+
+input image {
+  image_url: String
+}
+
+input post {
+  category_idx: Int!
+  user_idx: Int!
+  image_idx: Int!
+  post_title: String!
+  post_content: String!
+}
+
+input hashtag {
+  hashtag_name: String
+}
+
+type returnType {
+  count: Int!
+  rows: [Post!]!
+}
+
+type Image {
+  image_idx: Int!
+  image_url: String!
+}
+
+type Hashtag {
+  hashtag_idx: Int!
+  hashtag_name: String!
+}
+
+type Scrap {
+  scrap_idx: Int!
+  user_idx: Int!
+  post_idx: Int!
+  post: Post!
+  user: User!
+}
+
+input scrap {
+  user_idx: Int!
+  post_idx: Int!
+}
+
+type PostreturnType {
+  count: Int!
+  rows: [Scrap!]!
+}
+
+type UserReturnType {
+  count: Int!
+  rows: [User!]!
 }
 
 type User {

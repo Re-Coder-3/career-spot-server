@@ -1,7 +1,11 @@
 import { BuildOptions, DataTypes, Model, Sequelize } from "sequelize";
 
 export interface PostAttributes {
-  post_idx: number;
+  post_idx: number | string;
+  category_idx: number;
+  user_idx: number;
+  image_idx: number;
+  hashtag_idx: number;
   post_title: string;
   post_content: string;
   createdAt?: Date;
@@ -23,6 +27,42 @@ export function PostFactory(sequelize: Sequelize): PostStatic {
         autoIncrement: true,
         primaryKey: true,
       },
+      category_idx: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true,
+        references: {
+          model: 'category',
+          key: 'cateogory_idx'
+        }
+      },
+      user_idx: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true,
+        references: {
+          model: 'user',
+          key: 'user_idx'
+        }
+      },
+      image_idx: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true,
+        references: {
+          model: 'image',
+          key: 'image_idx'
+        }
+      },
+      hashtag_idx: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true,
+        references: {
+          model: 'hashtag',
+          key: 'hashtag_idx'
+        }
+      },
       post_title: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -31,16 +71,7 @@ export function PostFactory(sequelize: Sequelize): PostStatic {
       post_content: {
         type: DataTypes.STRING,
         allowNull: false,
-      },
-      createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-      },
-      updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
+        unique: true,
       },
     },
     {

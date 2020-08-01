@@ -1,8 +1,11 @@
 import { Sequelize, Model, DataTypes, NOW } from "sequelize";
 import { config } from "./config";
 import { UserFactory } from "../model/User";
-import { PostFactory } from "../model/Post";
 import { CategoryFactory } from "../model/Category";
+import { PostFactory } from "../model/Post";
+import { ImageFactory } from "../model/Img";
+import { ScrapFactory } from "../model/Scrap";
+import { HashtagFactory } from "../model/Hashtag";
 
 
 const db = new Sequelize(config.database, config.username, config.password, {
@@ -29,8 +32,19 @@ db.authenticate()
   });
 
 export const User = UserFactory(db);
-export const Post = PostFactory(db);
 export const Category = CategoryFactory(db);
+export const Post = PostFactory(db);
+export const Image = ImageFactory(db);
+export const Scrap = ScrapFactory(db);
+export const Hashtag = HashtagFactory(db);
 
-Post.hasOne(User);
+
+Post.belongsTo(Category, {foreignKey: 'category_idx'});
+Post.belongsTo(User, {foreignKey: 'user_idx'});
+Post.belongsTo(Image, {foreignKey: 'image_idx'});
+Post.belongsTo(Hashtag, {foreignKey: 'hashtag_idx'});
+
+Scrap.belongsTo(Post, {foreignKey: 'post_idx'});
+Scrap.belongsTo(User, {foreignKey: 'user_idx'});
+
 // User.belongsTo(Post, {through: "post_user"});

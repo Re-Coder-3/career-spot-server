@@ -1,0 +1,26 @@
+type Query {
+  findScrap: [Scrap]!
+  findScrapForUser: PostreturnType!
+}
+
+type Mutation {
+  createScrap(scrap: scrap!): Scrap!
+}
+
+type Scrap {
+  scrap_idx: Int!
+  user_idx: Int!
+  post_idx: Int!
+  post: Post!,
+  user: User!
+}
+
+input scrap {
+  user_idx: Int!
+  post_idx: Int!
+}
+
+type PostreturnType {
+  count: Int!
+  rows: [Scrap!]!
+}
