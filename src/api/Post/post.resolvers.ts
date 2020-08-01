@@ -1,5 +1,5 @@
-import { Post, Image, Category, User } from "../../db/index";
-import { image, post } from "../../types/graph";
+import { Post, Image, Category, User, Hashtag } from "../../db/index";
+import { image, post, hashtag } from "../../types/graph";
 export default {
   Query: {
     /**
@@ -37,9 +37,11 @@ export default {
     /**
      * 글 작성하기
      */
-    createPost: async (_:any, args: {image: image, post: post}) => {
+    createPost: async (_:any, args: {image: image, post: post, hashtag: hashtag}) => {
       const post:any = args.post;
-      const image:any = args.image
+      const image:any = args.image;
+      const hashtag:any = args.hashtag;
+
       try{
 
         const image_result = await Image.create({
@@ -49,13 +51,21 @@ export default {
 
         const image_idx = Number(image_result.image_idx); // 생성된 이미지 idx
 
+        const hashtag_result = await Hashtag.create({
+          hashtag_idx: "",
+          hashtag_name: hashtag.hashtag_name
+        })
+
+        const hashtag_idx = Number(hashtag_result.hashtag_idx); // 생성된 해시태그 idx
+
         await Post.create({
           post_idx: "",
           category_idx: post.category_idx,
           user_idx: post.user_idx,
           image_idx: image_idx,
           post_title: post.post_title,
-          post_content: post.post_content
+          post_content: post.post_content,
+          hashtag_idx: hashtag_idx
         });
 
       }catch(e){
