@@ -24,9 +24,15 @@ export default {
               model: Image,
               required: true,
               attributes: ['image_url']
+            },
+            {   
+              model: Hashtag,
+              required: true,
+              attributes: ['hashtag_name']
             }
-        ]
+          ]
         });
+
         return result;
       } catch {
         return false;
