@@ -3,7 +3,6 @@ import { Context } from 'graphql-yoga/dist/types';
 
 interface IUser {
   user_email: string;
-  user_password: string;
   user_idx: number;
   iat: number;
   exp: number;

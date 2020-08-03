@@ -4,11 +4,26 @@ type Query {
 }
 
 type Mutation {
-  createUser(user_name: String!, user_email: String!, user_password: String!): createUserReturnType!
+  createUser(user_email: String!, user_password: String!): createUserReturnType!
+  updateUserProfile(
+    user_name: String!
+    user_location: String
+    user_like_category: String
+    user_profile_img: String
+    user_birthday: String
+    user_career: String
+    user_education: String
+    user_career_img: [String]
+  ): updateUserProfileReturnType!
   loginUser(user_email: String!, user_password: String!): String!
-
   deleteUser(user_idx: Int!): User!
   updateUser(image_url: String): String!
+}
+
+type User {
+  user_idx: Int!
+  user_email: String!
+  user_password: String!
 }
 
 type UserReturnType {
@@ -16,14 +31,12 @@ type UserReturnType {
   rows: [User!]!
 }
 
-type User {
-  user_idx: Int!
-  user_name: String!
-  user_email: String!
-  user_password: String!
+type createUserReturnType {
+  status: Int!
+  error: String
 }
 
-type createUserReturnType {
+type updateUserProfileReturnType {
   status: Int!
   error: String
 }
