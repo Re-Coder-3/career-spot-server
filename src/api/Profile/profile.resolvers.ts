@@ -8,40 +8,29 @@ export default {
     meProfile: async (_: any, __: any, context: Context): Promise<meProfileReturnType> => {
       const u = getUser(context);
       const userIdx = u?.user_idx;
-      const profile = await Profile.findOne({
-        attributes: [
-          'profile_idx',
-          'user_idx',
-          'user_name',
-          'user_location',
-          'user_education',
-          'user_profile_img',
-          'user_like_category_idx',
-          'user_career',
+      const user = await User.findOne({
+        include: [
+          {
+            model: Profile,
+            include: [
+              {
+                model: Image,
+              },
+              {
+                model: Category,
+              },
+            ],
+          },
         ],
         where: {
           user_idx: userIdx,
         },
-        include: [
-          {
-            model: Image,
-            required: true,
-          },
-          {
-            model: Category,
-            required: true,
-          },
-          {
-            model: User,
-            required: true,
-          },
-        ],
+        raw: true,
       });
-      console.log(profile);
-
+      console.log(user);
       return {
         status: 200,
-        data: profile,
+        data: null,
         error: null,
       };
     },
