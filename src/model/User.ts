@@ -2,10 +2,9 @@ import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
 
 export interface UserAttributes {
   user_idx: number | string;
-  user_name: string;
   user_email: string;
   user_password: string;
-  user_profile_image: number | string;
+  user_profile_idx: number | null | string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -30,20 +29,16 @@ export function UserFactory(sequelize: Sequelize): UserStatic {
         allowNull: false,
         unique: true,
       },
-      user_name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       user_password: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      user_profile_image: {
+      user_profile_idx: {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
-          model: 'image',
-          key: 'image_idx',
+          model: 'Profile',
+          key: 'profile_idx',
         },
       },
       createdAt: {

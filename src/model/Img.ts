@@ -1,8 +1,8 @@
-import { BuildOptions, DataTypes, Model, Sequelize } from "sequelize";
+import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
 
 export interface ImageAttributes {
   image_idx: number | string;
-  image_url: string;
+  image_url: string | null;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -15,7 +15,7 @@ export type ImageStatic = typeof Model & {
 
 export function ImageFactory(sequelize: Sequelize): ImageStatic {
   return <ImageStatic>sequelize.define(
-    "image",
+    'image',
     {
       image_idx: {
         type: DataTypes.INTEGER,
@@ -30,6 +30,6 @@ export function ImageFactory(sequelize: Sequelize): ImageStatic {
     },
     {
       freezeTableName: true,
-    }
+    },
   );
 }
