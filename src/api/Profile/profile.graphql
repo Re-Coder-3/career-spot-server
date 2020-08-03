@@ -1,0 +1,30 @@
+type Query {
+  meProfile: meProfileReturnType!
+}
+
+type meProfileReturnType {
+  status: Int!
+  data: Profile
+  error: String
+}
+
+type Profile {
+  profile_idx: Int
+  user_idx: Int
+  user_name: String
+  user_location: String
+  user_education: String
+  user_profile_img: Int
+  user_like_category_idx: Int
+  user_career: String
+  category: Category
+  user: User
+  image: Image
+}
+
+type user {
+  user_idx: Int
+  user_email: String
+  user_password: String
+  user_profile_idx: Int
+}

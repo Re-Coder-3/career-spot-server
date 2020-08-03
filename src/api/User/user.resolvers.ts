@@ -61,8 +61,9 @@ export default {
           user_idx: '',
           user_email,
           user_password: hashedPassword,
-          user_profile_idx: null,
+          user_profile_idx: '',
         });
+        // TODO: 처음에는 default profile data가 있으면 거기 연결해도 괜찮을듯합니다.
         return {
           status: 200,
           error: null,
