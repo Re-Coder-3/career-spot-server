@@ -1,6 +1,7 @@
 type Query {
   findCategory: [Category]!
   findPost: returnType!
+  meProfile: meProfileReturnType!
   findScrap: [Scrap]!
   findScrapForUser: PostreturnType!
   findAllUser: UserReturnType!
@@ -70,6 +71,27 @@ type Image {
 type Hashtag {
   hashtag_idx: Int!
   hashtag_name: String!
+}
+
+type meProfileReturnType {
+  status: Int!
+  data: User
+  error: String
+}
+
+type Profile {
+  profile_idx: Int
+  user_idx: Int
+  user_name: String
+  user_location: String
+  user_education: String
+  user_profile_img: Int
+  user_like_category_idx: Int
+  user_career: String
+}
+
+type PP {
+  rows: Post
 }
 
 type Scrap {
