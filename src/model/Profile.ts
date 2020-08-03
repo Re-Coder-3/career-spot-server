@@ -1,16 +1,18 @@
 import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
-import { Category } from '../types/graph';
 
 export interface ProfileAttributes {
   profile_idx: number | string;
   user_idx: number | string;
-  user_name: string;
-  user_location: string;
-  user_profile_img: number | string;
-  user_like_category: number | string;
-  user_career: string;
+  user_name: string | null;
+  user_location: string | null;
+  user_education: string | null;
+  user_profile_img: number | string | null;
+  user_like_category_idx: number | string | null;
+  user_career: string | null;
+  createdAt?: Date;
+  updatedAt?: Date;
   //   user_career_img: string;
-  user_birth_day: Date;
+  //   user_birth_day: Date;
 }
 export interface ProfileModel extends Model<ProfileAttributes>, ProfileAttributes {}
 export class Profile extends Model<ProfileModel, ProfileAttributes> {}
@@ -54,7 +56,7 @@ export function ProfileFactory(sequelize: Sequelize): ProfileStatic {
           key: 'image_idx',
         },
       },
-      user_like_category: {
+      user_like_category_idx: {
         type: DataTypes.INTEGER,
         allowNull: true,
         unique: true,
@@ -67,13 +69,17 @@ export function ProfileFactory(sequelize: Sequelize): ProfileStatic {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      user_education: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       //   user_career_img:{
       //       type:DataTypes.STRING
       //   },
-      user_birth_day: {
-        type: DataTypes.DATE,
-        allowNull: true,
-      },
+      //   user_birth_day: {
+      //     type: DataTypes.DATE,
+      //     allowNull: true,
+      //   },
 
       createdAt: {
         type: DataTypes.DATE,

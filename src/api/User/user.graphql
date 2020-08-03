@@ -11,6 +11,7 @@ type Mutation {
     user_like_category: String
     user_profile_img: String
     user_birthday: String
+    user_career: String
     user_education: String
     user_career_img: [String]
   ): updateUserProfileReturnType!
