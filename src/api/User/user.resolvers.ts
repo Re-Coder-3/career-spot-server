@@ -104,7 +104,6 @@ export default {
               user_idx,
             },
           });
-          console.log('asdfasdfasdfasdf', profile);
           // * category 이름으로 검색해서 겹치는게 있으면 생성하지않고 연결만.
           const category = await Category.findOne({
             where: {
@@ -115,15 +114,15 @@ export default {
           // * 프론트엔드에서는 프로필수정을 수행할때 input창에 value를
           // * 백엔드에서 받아온 유저 정보를 미리 넣어놓아야 수정할때
           // * 유저가 수정하지않은사항은 이전값 그대로 업데이트 할수있습니다.
-          await Profile.destroy({
-            where: {
-              profile_idx: user?.user_profile_idx,
-            },
-          });
+          if (user?.user_profile_idx) {
+            await Profile.destroy({
+              where: {
+                profile_idx: user?.user_profile_idx,
+              },
+            });
+          }
           const profileImg = profile?.user_profile_img;
-          console.log('awefwaefaef', profileImg);
           if (profileImg) {
-            console.log('exist');
             await Image.destroy({
               where: {
                 image_idx: profileImg,
