@@ -17,9 +17,8 @@ type Mutation {
   kakaoAuth(code: String!): String!
   createUser(user_email: String!, user_password: String!): createUserReturnType!
   updateUserProfile(user_name: String!, user_location: String, user_like_category: String, user_profile_img: String, user_birthday: String, user_career: String, user_education: String, user_career_img: [String]): updateUserProfileReturnType!
-  loginUser(user_email: String!, user_password: String!): String!
+  loginUser(user_email: String!, user_password: String!): loginUserReturnType!
   deleteUser(user_idx: Int!): User!
-  updateUser(image_url: String): String!
 }
 
 type Category {
@@ -100,6 +99,12 @@ type User {
 type UserReturnType {
   count: Int!
   rows: [User!]!
+}
+
+type loginUserReturnType {
+  status: Int!
+  data: String
+  error: String
 }
 
 type createUserReturnType {

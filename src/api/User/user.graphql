@@ -15,9 +15,8 @@ type Mutation {
     user_education: String
     user_career_img: [String]
   ): updateUserProfileReturnType!
-  loginUser(user_email: String!, user_password: String!): String!
+  loginUser(user_email: String!, user_password: String!): loginUserReturnType!
   deleteUser(user_idx: Int!): User!
-  updateUser(image_url: String): String!
 }
 
 type User {
@@ -29,6 +28,12 @@ type User {
 type UserReturnType {
   count: Int!
   rows: [User!]!
+}
+
+type loginUserReturnType {
+  status: Int!
+  data: String
+  error: String
 }
 
 type createUserReturnType {

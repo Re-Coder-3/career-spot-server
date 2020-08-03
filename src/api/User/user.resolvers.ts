@@ -7,6 +7,7 @@ import {
   createUserReturnType,
   updateUserProfileReturnType,
   LoginUserMutationArgs,
+  loginUserReturnType,
 } from '../../types/graph';
 import { Context } from 'graphql-yoga/dist/types';
 import { getUser } from '../../utils';
@@ -177,7 +178,11 @@ export default {
       };
     },
 
-    loginUser: async (_: any, args: LoginUserMutationArgs, context: Context): Promise<string> => {
+    loginUser: async (
+      _: any,
+      args: LoginUserMutationArgs,
+      context: Context,
+    ): Promise<loginUserReturnType> => {
       try {
         const { user_email, user_password } = args;
         const user = await User.findOne({
@@ -186,59 +191,39 @@ export default {
           },
         });
         if (!user) {
-          // return {
-          //   status:200,
-          //   error: "UserNotFound",
-          //   data:""
-          // }
-          return 'UserNotFound';
+          return {
+            status: 400,
+            data: null,
+            error: 'UserNotFound',
+          };
         }
         const pwd = await bcrypt.compare(user_password, user.user_password);
         if (!pwd) {
-          return 'WrongPwd';
+          return {
+            status: 400,
+            data: null,
+            error: 'WrongPwd',
+          };
         }
         const SECRET_KEY = process.env.JWT_SECRET_KEY!;
         const jwtToken = jwt.sign({ user_email: user_email, user_idx: user.user_idx }, SECRET_KEY, {
           expiresIn: '4h',
         });
-        console.log(jwtToken);
 
-        return jwtToken;
+        return {
+          status: 200,
+          data: jwtToken,
+          error: null,
+        };
       } catch (e) {
         console.log(e);
-        return 'ServerErr';
+        return {
+          status: 500,
+          data: null,
+          error: 'ServerError',
+        };
       }
     },
-
-    // updateUser: async (_: any, args: UpdateUserMutationArgs, context: Context): Promise<string> => {
-    //   const user = getUser(context);
-    //   const user_idx = user?.user_idx;
-    //   try {
-    //     const user = await User.findOne({
-    //       where: { user_idx },
-    //     });
-    //     const image_idx = user?.user_profile_image;
-    //     if (image_idx) {
-    //       await Image.destroy({
-    //         where: {
-    //           image_idx,
-    //         },
-    //       });
-    //       const { image_url }: string | any = args!;
-    //       const image_result = await Image.create({
-    //         image_idx: '',
-    //         image_url: image_url,
-    //       });
-    //       await User.update(
-    //         { user_profile_image: image_result.image_idx },
-    //         { where: { user_idx } },
-    //       );
-    //     }
-    //     return 'Success';
-    //   } catch (e) {
-    //     return 'Fail';
-    //   }
-    // },
 
     // deleteUser: async (_: any, args: DeleteUserMutationArgs) => {
     //   let result: any;
