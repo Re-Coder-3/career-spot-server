@@ -93,13 +93,6 @@ type Profile {
   image: Image
 }
 
-type user {
-  user_idx: Int
-  user_email: String
-  user_password: String
-  user_profile_idx: Int
-}
-
 type Scrap {
   scrap_idx: Int!
   user_idx: Int!

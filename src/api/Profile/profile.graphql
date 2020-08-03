@@ -21,10 +21,3 @@ type Profile {
   user: User
   image: Image
 }
-
-type user {
-  user_idx: Int
-  user_email: String
-  user_password: String
-  user_profile_idx: Int
-}
