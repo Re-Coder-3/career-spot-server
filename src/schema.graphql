@@ -12,7 +12,7 @@ type Mutation {
   createCategory(category_idx: Int!, category_name: String!): Category!
   deleteCategory(category_idx: Int!): Category!
   updateCategory(category_idx: Int!, category_name: String!): Category!
-  singleUpload(file: Upload!): Boolean!
+  singleUpload(file: Upload!): String!
   createPost(image: image!, post: post!, hashtag: hashtag): Post!
   createScrap(scrap: scrap!): Scrap!
   kakaoAuth(code: String!): String!
