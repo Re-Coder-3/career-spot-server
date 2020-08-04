@@ -1,6 +1,8 @@
 type Query {
   findCategory: [Category]!
   findPost(args: args!): returnType!
+  findPost: returnType!
+  meProfile: meProfileReturnType!
   findScrap: [Scrap]!
   findScrapForUser: PostreturnType!
   findAllUser: UserReturnType!
@@ -11,14 +13,14 @@ type Mutation {
   createCategory(category_idx: Int!, category_name: String!): Category!
   deleteCategory(category_idx: Int!): Category!
   updateCategory(category_idx: Int!, category_name: String!): Category!
-  singleUpload(file: Upload!): Boolean!
+  singleUpload(file: Upload!): String!
   createPost(image: image!, post: post!, hashtag: hashtag): Post!
   createScrap(scrap: scrap!): Scrap!
   kakaoAuth(code: String!): String!
-  createUser(user_name: String!, user_email: String!, user_password: String!): createUserReturnType!
-  loginUser(user_email: String!, user_password: String!): String!
+  createUser(user_email: String!, user_password: String!): createUserReturnType!
+  updateUserProfile(user_name: String!, user_location: String, user_like_category: String, user_profile_img: String, user_birthday: String, user_career: String, user_education: String, user_career_img: [String]): updateUserProfileReturnType!
+  loginUser(user_email: String!, user_password: String!): loginUserReturnType!
   deleteUser(user_idx: Int!): User!
-  updateUser(image_url: String): String!
 }
 
 type Category {
@@ -71,7 +73,6 @@ type Hashtag {
   hashtag_idx: Int!
   hashtag_name: String!
 }
-
 input args {
   offset: Int!
   limit: Int!
@@ -82,6 +83,26 @@ input filters {
   field: String!
   operator: String!
   value: String!
+ }
+ 
+type meProfileReturnType {
+  status: Int!
+  data: Profile
+  error: String
+}
+
+type Profile {
+  profile_idx: Int
+  user_idx: Int
+  user_name: String
+  user_location: String
+  user_education: String
+  user_profile_img: Int
+  user_like_category_idx: Int
+  user_career: String
+  category: Category
+  user: User
+  image: Image
 }
 
 type Scrap {
@@ -102,16 +123,29 @@ type PostreturnType {
   rows: [Scrap!]!
 }
 
+type User {
+  user_idx: Int!
+  user_email: String!
+  user_password: String!
+}
+
 type UserReturnType {
   count: Int!
   rows: [User!]!
 }
 
-type User {
-  user_idx: Int!
+type loginUserReturnType {
+  status: Int!
+  data: String
+  error: String
 }
 
 type createUserReturnType {
+  status: Int!
+  error: String
+}
+
+type updateUserProfileReturnType {
   status: Int!
   error: String
 }

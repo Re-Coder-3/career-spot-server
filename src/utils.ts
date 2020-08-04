@@ -4,7 +4,6 @@ import { Op } from 'sequelize';
 
 interface IUser {
   user_email: string;
-  user_password: string;
   user_idx: number;
   iat: number;
   exp: number;

@@ -1,7 +1,7 @@
 scalar Upload
 
 type Mutation {
-  singleUpload(file: Upload!): Boolean!
+  singleUpload(file: Upload!): String!
 }
 
 # type File {
