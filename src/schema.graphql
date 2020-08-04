@@ -1,5 +1,6 @@
 type Query {
   findCategory: [Category]!
+  findPost(args: args!): returnType!
   findPost: returnType!
   meProfile: meProfileReturnType!
   findScrap: [Scrap]!
@@ -72,7 +73,18 @@ type Hashtag {
   hashtag_idx: Int!
   hashtag_name: String!
 }
+input args {
+  offset: Int!
+  limit: Int!
+  filter: [filters!]!
+}
 
+input filters {
+  field: String!
+  operator: String!
+  value: String!
+ }
+ 
 type meProfileReturnType {
   status: Int!
   data: Profile
