@@ -19,7 +19,8 @@ export default {
     singleUpload: async (_: any, args: SingleUploadMutationArgs) => {
       const { stream, filename } = await args.file;
       await storeUpload({ stream, filename });
-      return true;
+      console.log(filename);
+      return `https://storage.googleapis.com/career-spot/${filename}`;
     },
   },
 };
