@@ -8,7 +8,7 @@ export default {
     meProfile: async (_: any, __: any, context: Context): Promise<meProfileReturnType> => {
       const u = getUser(context);
       const userIdx = u?.user_idx;
-      const profile = await Profile.findOne({
+      const profile: any = await Profile.findOne({
         attributes: [
           'profile_idx',
           'user_idx',
