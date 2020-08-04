@@ -1,4 +1,4 @@
-
+export const typeDefs = ["type Query {\n  findCategory: [Category]!\n  findPost(args: args!): returnType!\n  findScrap: [Scrap]!\n  findScrapForUser: PostreturnType!\n  findAllUser: UserReturnType!\n  checkUser: String\n}\n\ntype Mutation {\n  createCategory(category_idx: Int!, category_name: String!): Category!\n  deleteCategory(category_idx: Int!): Category!\n  updateCategory(category_idx: Int!, category_name: String!): Category!\n  singleUpload(file: Upload!): Boolean!\n  createPost(image: image!, post: post!, hashtag: hashtag): Post!\n  createScrap(scrap: scrap!): Scrap!\n  kakaoAuth(code: String!): String!\n  createUser(user_name: String!, user_email: String!, user_password: String!): createUserReturnType!\n  loginUser(user_email: String!, user_password: String!): String!\n  deleteUser(user_idx: Int!): User!\n  updateUser(image_url: String): String!\n}\n\ntype Category {\n  category_idx: Int!\n  category_name: String!\n}\n\nscalar Upload\n\ntype Post {\n  post_idx: Int\n  category_idx: Int!\n  user_idx: Int!\n  image_idx: Int!\n  post_title: String!\n  post_content: String!\n  category: Category!\n  user: User!\n  image: Image!\n  hashtag: Hashtag!\n}\n\ninput image {\n  image_url: String\n}\n\ninput post {\n  category_idx: Int!\n  user_idx: Int!\n  image_idx: Int!\n  post_title: String!\n  post_content: String!\n}\n\ninput hashtag {\n  hashtag_name: String\n}\n\ntype returnType {\n  count: Int!\n  rows: [Post!]!\n}\n\ntype Image {\n  image_idx: Int!\n  image_url: String!\n}\n\ntype Hashtag {\n  hashtag_idx: Int!\n  hashtag_name: String!\n}\n\ninput args {\n  offset: Int!\n  limit: Int!\n  filter: [filters!]!\n}\n\ninput filters {\n  field: String!\n  operator: String!\n  value: String!\n}\n\ntype Scrap {\n  scrap_idx: Int!\n  user_idx: Int!\n  post_idx: Int!\n  post: Post!\n  user: User!\n}\n\ninput scrap {\n  user_idx: Int!\n  post_idx: Int!\n}\n\ntype PostreturnType {\n  count: Int!\n  rows: [Scrap!]!\n}\n\ntype UserReturnType {\n  count: Int!\n  rows: [User!]!\n}\n\ntype User {\n  user_idx: Int!\n}\n\ntype createUserReturnType {\n  status: Int!\n  error: String\n}\n"];
 /* tslint:disable */
 
 export interface Query {
@@ -10,9 +10,25 @@ export interface Query {
   checkUser: string | null;
 }
 
+export interface FindPostQueryArgs {
+  args: args;
+}
+
 export interface Category {
   category_idx: number;
   category_name: string;
+}
+
+export interface args {
+  offset: number;
+  limit: number;
+  filter: Array<filters>;
+}
+
+export interface filters {
+  field: string;
+  operator: string;
+  value: string;
 }
 
 export interface returnType {
@@ -35,9 +51,6 @@ export interface Post {
 
 export interface User {
   user_idx: number;
-  user_name: string;
-  user_email: string;
-  user_password: string;
 }
 
 export interface Image {

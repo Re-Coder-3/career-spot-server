@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { Context } from 'graphql-yoga/dist/types';
+import { Op } from 'sequelize';
 
 interface IUser {
   user_email: string;
@@ -21,3 +22,25 @@ export const getUser = (context: Context) => {
     return user as IUser;
   }
 };
+
+export const changeWhere = (filter: any) => {
+  let fieldList = []
+  let where: any = {}
+  console.log(filter)
+
+  for(let i = 0; i < filter.length; i ++ ){
+    if(filter[i].operator == "like"){
+      where[filter[i].field] = {
+        [Op.like]: `%${filter[i].value}%`
+      }
+    }
+    fieldList.push(where)
+    console.log("where => ", where)
+  }
+
+  let returnWhere = {};
+
+  returnWhere = { [Op.and]: fieldList };
+
+  return returnWhere;
+}

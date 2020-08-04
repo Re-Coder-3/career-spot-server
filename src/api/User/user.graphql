@@ -18,9 +18,6 @@ type UserReturnType {
 
 type User {
   user_idx: Int!
-  user_name: String!
-  user_email: String!
-  user_password: String!
 }
 
 type createUserReturnType {
