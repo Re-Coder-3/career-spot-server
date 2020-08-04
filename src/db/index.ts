@@ -50,3 +50,10 @@ Scrap.belongsTo(User, { foreignKey: 'user_idx' });
 // User.belongsTo(Image, { foreignKey: 'image_idx' });
 
 // User.belongsTo(Post, {through: "post_user"});
+
+// * foreignKey 이름은 mysql 내부의 column 이름과 같게 지어야 합니다.
+User.belongsTo(Profile, { foreignKey: 'user_profile_idx' });
+
+Profile.belongsTo(User, { foreignKey: 'user_idx' });
+Profile.belongsTo(Image, { foreignKey: 'user_profile_img' });
+Profile.belongsTo(Category, { foreignKey: 'user_like_category_idx' });
