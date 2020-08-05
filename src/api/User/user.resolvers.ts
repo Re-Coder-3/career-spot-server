@@ -220,14 +220,43 @@ export default {
     ): Promise<sendNewPasswordReturnType> => {
       const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY!;
 
+      const { user_email } = args;
+
+      const user = await User.findOne({
+        where: {
+          user_email,
+        },
+      });
+      if (!user) {
+        return {
+          status: 400,
+          data: false,
+          error: 'WrongEmail',
+        };
+      }
+      const newPwd = 'superman';
+      const newPassword = await bcrypt.hash(newPwd, 10);
+
+      console.log(user);
+      await User.update(
+        {
+          user_password: newPassword,
+        },
+        {
+          where: {
+            user_email,
+          },
+        },
+      );
+
+      // * SendGrid Send Mail Part
       sgMail.setApiKey(SENDGRID_API_KEY);
 
       const msg = {
-        to: 'dy95032@gmail.com',
+        to: user_email,
         from: 'career@spot.com',
-        subject: 'Sending with Twilio SendGrid is Fun',
-        text: 'and easy to do anywhere, even with Node.js',
-        html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+        subject: '🚀Your new password from Career-Spot',
+        html: `<strong>${newPwd}</strong>`,
       };
       sgMail.send(msg);
       return {
