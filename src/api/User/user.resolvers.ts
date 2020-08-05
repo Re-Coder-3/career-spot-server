@@ -8,9 +8,12 @@ import {
   updateUserProfileReturnType,
   LoginUserMutationArgs,
   loginUserReturnType,
+  sendNewPasswordReturnType,
+  SendNewPasswordMutationArgs,
 } from '../../types/graph';
 import { Context } from 'graphql-yoga/dist/types';
 import { getUser } from '../../utils';
+import sgMail from '@sendgrid/mail';
 
 export default {
   Query: {
@@ -35,22 +38,11 @@ export default {
       try {
         const { user_email, user_password } = args;
         const hashedPassword = await bcrypt.hash(user_password, 10);
-        // const nameCheck = await User.findOne({
-        //   where: {
-        //     user_name,
-        //   },
-        // });
         const emailCheck = await User.findOne({
           where: {
             user_email,
           },
         });
-        // if (nameCheck) {
-        //   return {
-        //     status: 400,
-        //     error: 'nameDuplicated',
-        //   };
-        // }
         if (emailCheck) {
           return {
             status: 400,
@@ -76,6 +68,7 @@ export default {
         };
       }
     },
+
     updateUserProfile: async (
       _: any,
       args: UpdateUserProfileMutationArgs,
@@ -179,11 +172,7 @@ export default {
       };
     },
 
-    loginUser: async (
-      _: any,
-      args: LoginUserMutationArgs,
-      context: Context,
-    ): Promise<loginUserReturnType> => {
+    loginUser: async (_: any, args: LoginUserMutationArgs): Promise<loginUserReturnType> => {
       try {
         const { user_email, user_password } = args;
         const user = await User.findOne({
@@ -224,6 +213,57 @@ export default {
           error: 'ServerError',
         };
       }
+    },
+    sendNewPassword: async (
+      _: any,
+      args: SendNewPasswordMutationArgs,
+    ): Promise<sendNewPasswordReturnType> => {
+      const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY!;
+
+      const { user_email } = args;
+
+      const user = await User.findOne({
+        where: {
+          user_email,
+        },
+      });
+      if (!user) {
+        return {
+          status: 400,
+          data: false,
+          error: 'WrongEmail',
+        };
+      }
+      const newPwd = 'superman';
+      const newPassword = await bcrypt.hash(newPwd, 10);
+
+      console.log(user);
+      await User.update(
+        {
+          user_password: newPassword,
+        },
+        {
+          where: {
+            user_email,
+          },
+        },
+      );
+
+      // * SendGrid Send Mail Part
+      sgMail.setApiKey(SENDGRID_API_KEY);
+
+      const msg = {
+        to: user_email,
+        from: 'career@spot.com',
+        subject: '🚀Your new password from Career-Spot',
+        html: `<strong>${newPwd}</strong>`,
+      };
+      sgMail.send(msg);
+      return {
+        status: 200,
+        data: true,
+        error: null,
+      };
     },
 
     // deleteUser: async (_: any, args: DeleteUserMutationArgs) => {

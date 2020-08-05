@@ -1,7 +1,6 @@
 type Query {
   findCategory: [Category]!
   findPost(args: args!): returnType!
-  findPost: returnType!
   meProfile: meProfileReturnType!
   findScrap: [Scrap]!
   findScrapForUser: PostreturnType!
@@ -20,6 +19,7 @@ type Mutation {
   createUser(user_email: String!, user_password: String!): createUserReturnType!
   updateUserProfile(user_name: String!, user_location: String, user_like_category: String, user_profile_img: String, user_birthday: String, user_career: String, user_education: String, user_career_img: [String]): updateUserProfileReturnType!
   loginUser(user_email: String!, user_password: String!): loginUserReturnType!
+  sendNewPassword(user_email: String!): sendNewPasswordReturnType!
   deleteUser(user_idx: Int!): User!
 }
 
@@ -73,6 +73,7 @@ type Hashtag {
   hashtag_idx: Int!
   hashtag_name: String!
 }
+
 input args {
   offset: Int!
   limit: Int!
@@ -83,8 +84,8 @@ input filters {
   field: String!
   operator: String!
   value: String!
- }
- 
+}
+
 type meProfileReturnType {
   status: Int!
   data: Profile
@@ -121,6 +122,12 @@ input scrap {
 type PostreturnType {
   count: Int!
   rows: [Scrap!]!
+}
+
+type sendNewPasswordReturnType {
+  status: Int!
+  data: Boolean
+  error: String
 }
 
 type User {

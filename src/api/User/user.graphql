@@ -16,7 +16,14 @@ type Mutation {
     user_career_img: [String]
   ): updateUserProfileReturnType!
   loginUser(user_email: String!, user_password: String!): loginUserReturnType!
+  sendNewPassword(user_email: String!): sendNewPasswordReturnType!
   deleteUser(user_idx: Int!): User!
+}
+
+type sendNewPasswordReturnType {
+  status: Int!
+  data: Boolean
+  error: String
 }
 
 type User {
