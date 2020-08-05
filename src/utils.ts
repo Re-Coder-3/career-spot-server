@@ -9,6 +9,7 @@ interface IUser {
   exp: number;
 }
 
+// * header에 token이 담겨져 오면 유저정보를 해석하기 위한 함수입니다.
 export const getUser = (context: Context) => {
   const {
     request: {
@@ -23,18 +24,18 @@ export const getUser = (context: Context) => {
 };
 
 export const changeWhere = (filter: any) => {
-  let fieldList = []
-  let where: any = {}
-  console.log(filter)
+  let fieldList = [];
+  let where: any = {};
+  console.log(filter);
 
-  for(let i = 0; i < filter.length; i ++ ){
-    if(filter[i].operator == "like"){
+  for (let i = 0; i < filter.length; i++) {
+    if (filter[i].operator == 'like') {
       where[filter[i].field] = {
-        [Op.like]: `%${filter[i].value}%`
-      }
+        [Op.like]: `%${filter[i].value}%`,
+      };
     }
-    fieldList.push(where)
-    console.log("where => ", where)
+    fieldList.push(where);
+    console.log('where => ', where);
   }
 
   let returnWhere = {};
@@ -42,4 +43,4 @@ export const changeWhere = (filter: any) => {
   returnWhere = { [Op.and]: fieldList };
 
   return returnWhere;
-}
+};

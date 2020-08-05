@@ -1,5 +1,4 @@
-export const typeDefs = ["type Query {\n  findCategory: [Category]!\n  findPost: returnType!\n  meProfile: meProfileReturnType!\n  findScrap: [Scrap]!\n  findScrapForUser: PostreturnType!\n  findAllUser: UserReturnType!\n  checkUser: String\n}\n\ntype Mutation {\n  createCategory(category_idx: Int!, category_name: String!): Category!\n  deleteCategory(category_idx: Int!): Category!\n  updateCategory(category_idx: Int!, category_name: String!): Category!\n  singleUpload(file: Upload!): String!\n  createPost(image: image!, post: post!, hashtag: hashtag): Post!\n  createScrap(scrap: scrap!): Scrap!\n  kakaoAuth(code: String!): String!\n  createUser(user_email: String!, user_password: String!): createUserReturnType!\n  updateUserProfile(user_name: String!, user_location: String, user_like_category: String, user_profile_img: String, user_birthday: String, user_career: String, user_education: String, user_career_img: [String]): updateUserProfileReturnType!\n  loginUser(user_email: String!, user_password: String!): loginUserReturnType!\n  deleteUser(user_idx: Int!): User!\n}\n\ntype Category {\n  category_idx: Int!\n  category_name: String!\n}\n\nscalar Upload\n\ntype Post {\n  post_idx: Int\n  category_idx: Int!\n  user_idx: Int!\n  image_idx: Int!\n  post_title: String!\n  post_content: String!\n  category: Category!\n  user: User!\n  image: Image!\n  hashtag: Hashtag!\n}\n\ninput image {\n  image_url: String\n}\n\ninput post {\n  category_idx: Int!\n  user_idx: Int!\n  image_idx: Int!\n  post_title: String!\n  post_content: String!\n}\n\ninput hashtag {\n  hashtag_name: String\n}\n\ntype returnType {\n  count: Int!\n  rows: [Post!]!\n}\n\ntype Image {\n  image_idx: Int!\n  image_url: String!\n}\n\ntype Hashtag {\n  hashtag_idx: Int!\n  hashtag_name: String!\n}\n\ntype meProfileReturnType {\n  status: Int!\n  data: Profile\n  error: String\n}\n\ntype Profile {\n  profile_idx: Int\n  user_idx: Int\n  user_name: String\n  user_location: String\n  user_education: String\n  user_profile_img: Int\n  user_like_category_idx: Int\n  user_career: String\n  category: Category\n  user: User\n  image: Image\n}\n\ntype Scrap {\n  scrap_idx: Int!\n  user_idx: Int!\n  post_idx: Int!\n  post: Post!\n  user: User!\n}\n\ninput scrap {\n  user_idx: Int!\n  post_idx: Int!\n}\n\ntype PostreturnType {\n  count: Int!\n  rows: [Scrap!]!\n}\n\ntype User {\n  user_idx: Int!\n  user_email: String!\n  user_password: String!\n}\n\ntype UserReturnType {\n  count: Int!\n  rows: [User!]!\n}\n\ntype loginUserReturnType {\n  status: Int!\n  data: String\n  error: String\n}\n\ntype createUserReturnType {\n  status: Int!\n  error: String\n}\n\ntype updateUserProfileReturnType {\n  status: Int!\n  error: String\n}\n"];
-
+export const typeDefs = ["type Query {\n  findCategory: [Category]!\n  findPost(args: args!): returnType!\n  meProfile: meProfileReturnType!\n  findScrap: [Scrap]!\n  findScrapForUser: PostreturnType!\n  findAllUser: UserReturnType!\n  checkUser: String\n}\n\ntype Mutation {\n  createCategory(category_idx: Int!, category_name: String!): Category!\n  deleteCategory(category_idx: Int!): Category!\n  updateCategory(category_idx: Int!, category_name: String!): Category!\n  singleUpload(file: Upload!): String!\n  createPost(image: image!, post: post!, hashtag: hashtag): Post!\n  createScrap(scrap: scrap!): Scrap!\n  kakaoAuth(code: String!): String!\n  createUser(user_email: String!, user_password: String!): createUserReturnType!\n  updateUserProfile(user_name: String!, user_location: String, user_like_category: String, user_profile_img: String, user_birthday: String, user_career: String, user_education: String, user_career_img: [String]): updateUserProfileReturnType!\n  loginUser(user_email: String!, user_password: String!): loginUserReturnType!\n  sendNewPassword(user_email: String!): sendNewPasswordReturnType!\n  deleteUser(user_idx: Int!): User!\n}\n\ntype Category {\n  category_idx: Int!\n  category_name: String!\n}\n\nscalar Upload\n\ntype Post {\n  post_idx: Int\n  category_idx: Int!\n  user_idx: Int!\n  image_idx: Int!\n  post_title: String!\n  post_content: String!\n  category: Category!\n  user: User!\n  image: Image!\n  hashtag: Hashtag!\n}\n\ninput image {\n  image_url: String\n}\n\ninput post {\n  category_idx: Int!\n  user_idx: Int!\n  image_idx: Int!\n  post_title: String!\n  post_content: String!\n}\n\ninput hashtag {\n  hashtag_name: String\n}\n\ntype returnType {\n  count: Int!\n  rows: [Post!]!\n}\n\ntype Image {\n  image_idx: Int!\n  image_url: String!\n}\n\ntype Hashtag {\n  hashtag_idx: Int!\n  hashtag_name: String!\n}\n\ninput args {\n  offset: Int!\n  limit: Int!\n  filter: [filters!]!\n}\n\ninput filters {\n  field: String!\n  operator: String!\n  value: String!\n}\n\ntype meProfileReturnType {\n  status: Int!\n  data: Profile\n  error: String\n}\n\ntype Profile {\n  profile_idx: Int\n  user_idx: Int\n  user_name: String\n  user_location: String\n  user_education: String\n  user_profile_img: Int\n  user_like_category_idx: Int\n  user_career: String\n  category: Category\n  user: User\n  image: Image\n}\n\ntype Scrap {\n  scrap_idx: Int!\n  user_idx: Int!\n  post_idx: Int!\n  post: Post!\n  user: User!\n}\n\ninput scrap {\n  user_idx: Int!\n  post_idx: Int!\n}\n\ntype PostreturnType {\n  count: Int!\n  rows: [Scrap!]!\n}\n\ntype sendNewPasswordReturnType {\n  status: Int!\n  data: Boolean\n  error: String\n}\n\ntype User {\n  user_idx: Int!\n  user_email: String!\n  user_password: String!\n}\n\ntype UserReturnType {\n  count: Int!\n  rows: [User!]!\n}\n\ntype loginUserReturnType {\n  status: Int!\n  data: String\n  error: String\n}\n\ntype createUserReturnType {\n  status: Int!\n  error: String\n}\n\ntype updateUserProfileReturnType {\n  status: Int!\n  error: String\n}\n"];
 /* tslint:disable */
 
 export interface Query {
@@ -53,6 +52,8 @@ export interface Post {
 
 export interface User {
   user_idx: number;
+  user_email: string;
+  user_password: string;
 }
 
 export interface Image {
@@ -114,6 +115,7 @@ export interface Mutation {
   createUser: createUserReturnType;
   updateUserProfile: updateUserProfileReturnType;
   loginUser: loginUserReturnType;
+  sendNewPassword: sendNewPasswordReturnType;
   deleteUser: User;
 }
 
@@ -170,6 +172,10 @@ export interface LoginUserMutationArgs {
   user_password: string;
 }
 
+export interface SendNewPasswordMutationArgs {
+  user_email: string;
+}
+
 export interface DeleteUserMutationArgs {
   user_idx: number;
 }
@@ -210,5 +216,11 @@ export interface updateUserProfileReturnType {
 export interface loginUserReturnType {
   status: number;
   data: string | null;
+  error: string | null;
+}
+
+export interface sendNewPasswordReturnType {
+  status: number;
+  data: boolean | null;
   error: string | null;
 }
