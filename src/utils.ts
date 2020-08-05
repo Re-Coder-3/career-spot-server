@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import nodemailer from 'nodemailer';
 import { Context } from 'graphql-yoga/dist/types';
 import { Op } from 'sequelize';
 
@@ -44,34 +43,4 @@ export const changeWhere = (filter: any) => {
   returnWhere = { [Op.and]: fieldList };
 
   return returnWhere;
-};
-
-// * mail 보내는 함수입니다.
-
-export const sendMail = async (userEmail: string): Promise<void> => {
-  const transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    host: 'smtp.ethereal.email',
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: process.env.GOOGLE_USER, // generated ethereal user
-      pass: process.env.GOOGLE_PWD, // generated ethereal password
-    },
-  });
-
-  const mailConfig = {
-    from: 'nico@prismagram.com',
-    to: userEmail,
-    subject: '🚀 From Career-Spot',
-    html: `Hello This is your new password`,
-  };
-
-  transporter.sendMail(mailConfig, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-  });
 };

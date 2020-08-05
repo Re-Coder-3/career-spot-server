@@ -8,9 +8,12 @@ import {
   updateUserProfileReturnType,
   LoginUserMutationArgs,
   loginUserReturnType,
+  sendNewPasswordReturnType,
+  SendNewPasswordMutationArgs,
 } from '../../types/graph';
 import { Context } from 'graphql-yoga/dist/types';
 import { getUser } from '../../utils';
+import sgMail from '@sendgrid/mail';
 
 export default {
   Query: {
@@ -35,22 +38,11 @@ export default {
       try {
         const { user_email, user_password } = args;
         const hashedPassword = await bcrypt.hash(user_password, 10);
-        // const nameCheck = await User.findOne({
-        //   where: {
-        //     user_name,
-        //   },
-        // });
         const emailCheck = await User.findOne({
           where: {
             user_email,
           },
         });
-        // if (nameCheck) {
-        //   return {
-        //     status: 400,
-        //     error: 'nameDuplicated',
-        //   };
-        // }
         if (emailCheck) {
           return {
             status: 400,
@@ -76,6 +68,7 @@ export default {
         };
       }
     },
+
     updateUserProfile: async (
       _: any,
       args: UpdateUserProfileMutationArgs,
@@ -179,11 +172,7 @@ export default {
       };
     },
 
-    loginUser: async (
-      _: any,
-      args: LoginUserMutationArgs,
-      context: Context,
-    ): Promise<loginUserReturnType> => {
+    loginUser: async (_: any, args: LoginUserMutationArgs): Promise<loginUserReturnType> => {
       try {
         const { user_email, user_password } = args;
         const user = await User.findOne({
@@ -224,6 +213,28 @@ export default {
           error: 'ServerError',
         };
       }
+    },
+    sendNewPassword: async (
+      _: any,
+      args: SendNewPasswordMutationArgs,
+    ): Promise<sendNewPasswordReturnType> => {
+      const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY!;
+
+      sgMail.setApiKey(SENDGRID_API_KEY);
+
+      const msg = {
+        to: 'dy95032@gmail.com',
+        from: 'career@spot.com',
+        subject: 'Sending with Twilio SendGrid is Fun',
+        text: 'and easy to do anywhere, even with Node.js',
+        html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+      };
+      sgMail.send(msg);
+      return {
+        status: 200,
+        data: true,
+        error: null,
+      };
     },
 
     // deleteUser: async (_: any, args: DeleteUserMutationArgs) => {
