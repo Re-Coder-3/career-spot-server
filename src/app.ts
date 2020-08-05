@@ -8,6 +8,7 @@ import { Storage } from '@google-cloud/storage';
 import path from 'path';
 import schema from './schema';
 import './db';
+import { sendMail } from './utils';
 
 const schema1: any = schema;
 const server = new GraphQLServer({
