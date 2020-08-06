@@ -7,6 +7,7 @@ import { ImageFactory } from '../model/Img';
 import { ScrapFactory } from '../model/Scrap';
 import { HashtagFactory } from '../model/Hashtag';
 import { ProfileFactory } from '../model/Profile';
+import { HeartFactory } from '../model/Heart';
 
 const db = new Sequelize(config.database, config.username, config.password, {
   host: config.host,
@@ -38,6 +39,7 @@ export const Image = ImageFactory(db);
 export const Scrap = ScrapFactory(db);
 export const Hashtag = HashtagFactory(db);
 export const Profile = ProfileFactory(db);
+export const Heart = HeartFactory(db);
 
 Post.belongsTo(Category, { foreignKey: 'category_idx' });
 Post.belongsTo(User, { foreignKey: 'user_idx' });
