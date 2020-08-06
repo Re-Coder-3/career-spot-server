@@ -12,6 +12,7 @@ type Mutation {
   createCategory(category_idx: Int!, category_name: String!): Category!
   deleteCategory(category_idx: Int!): Category!
   updateCategory(category_idx: Int!, category_name: String!): Category!
+  toggleHeart(target_user_idx: Int, target_post_idx: Int): toggleHeartReturnType!
   singleUpload(file: Upload!): String!
   createPost(image: image!, post: post!, hashtag: hashtag): Post!
   createScrap(scrap: scrap!): Scrap!
@@ -26,6 +27,12 @@ type Mutation {
 type Category {
   category_idx: Int!
   category_name: String!
+}
+
+type toggleHeartReturnType {
+  status: Int!
+  data: Boolean
+  error: String
 }
 
 scalar Upload
