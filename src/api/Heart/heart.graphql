@@ -1,5 +1,29 @@
+type Query {
+  getHeartUser: getHeartUserReturnType!
+  getHeartPost: getHeartPostReturnType!
+}
+
 type Mutation {
   toggleHeart(target_user_idx: Int, target_post_idx: Int): toggleHeartReturnType!
+}
+
+type Heart {
+  heart_idx: Int!
+  target_user_idx: Int
+  target_post_idx: Int
+  user: User
+}
+
+type getHeartUserReturnType {
+  status: Int!
+  data: Heart
+  error: String
+}
+
+type getHeartPostReturnType {
+  status: Int!
+  data: [Post]
+  error: String
 }
 
 type toggleHeartReturnType {

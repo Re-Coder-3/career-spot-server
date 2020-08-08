@@ -59,3 +59,5 @@ User.belongsTo(Profile, { foreignKey: 'user_profile_idx' });
 Profile.belongsTo(User, { foreignKey: 'user_idx' });
 Profile.belongsTo(Image, { foreignKey: 'user_profile_img' });
 Profile.belongsTo(Category, { foreignKey: 'user_like_category_idx' });
+
+Heart.hasMany(User, { foreignKey: 'target_user_idx' });

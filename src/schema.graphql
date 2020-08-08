@@ -1,5 +1,7 @@
 type Query {
   findCategory: [Category]!
+  getHeartUser: getHeartUserReturnType!
+  getHeartPost: getHeartPostReturnType!
   findPost(args: args!): returnType!
   meProfile: meProfileReturnType!
   findScrap: [Scrap]!
@@ -27,6 +29,25 @@ type Mutation {
 type Category {
   category_idx: Int!
   category_name: String!
+}
+
+type Heart {
+  heart_idx: Int!
+  target_user_idx: Int
+  target_post_idx: Int
+  user: User
+}
+
+type getHeartUserReturnType {
+  status: Int!
+  data: Heart
+  error: String
+}
+
+type getHeartPostReturnType {
+  status: Int!
+  data: [Post]
+  error: String
 }
 
 type toggleHeartReturnType {
