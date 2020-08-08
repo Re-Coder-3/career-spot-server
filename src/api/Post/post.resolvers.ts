@@ -1,22 +1,14 @@
 import { Post, Image, Category, User, Hashtag } from "../../db/index";
 import { image, post, hashtag, args } from "../../types/graph";
-<<<<<<< HEAD
-=======
 import { changeWhere } from "../../utils";
->>>>>>> 18594f6be7f324c38e4c6c63a943cf9a5610b436
 export default {
   Query: {
     /**
      * 모든 게시물 불러오기 (카테고리별 불러오기, 해시태그별 불러오기, )
      */
-<<<<<<< HEAD
-    findPost: async (_: any, args: {args: args}) => {
-      console.log(args)
-=======
     findPost: async (_: any, args: { args: args }) => {
       const args_ = args.args;
 
->>>>>>> 18594f6be7f324c38e4c6c63a943cf9a5610b436
       try {
         const result = await Post.findAndCountAll({
           where: changeWhere(args_.filter),
