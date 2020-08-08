@@ -71,6 +71,14 @@ export function PostFactory(sequelize: Sequelize): PostStatic {
         allowNull: false,
         unique: true,
       },
+      createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
     },
     {
       freezeTableName: true,

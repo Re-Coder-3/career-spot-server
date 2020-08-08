@@ -17,7 +17,11 @@ type Post {
   user: User!
   image: Image!
   hashtag: Hashtag!
+  createdAt: Date!
+  updatedAt: Date!
 }
+
+scalar Date
 
 input image{
   image_url: String
