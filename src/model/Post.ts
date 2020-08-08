@@ -38,8 +38,6 @@ export function PostFactory(sequelize: Sequelize): PostStatic {
       },
       user_idx: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        unique: true,
         references: {
           model: 'user',
           key: 'user_idx'
