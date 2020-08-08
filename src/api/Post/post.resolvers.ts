@@ -1,11 +1,12 @@
 import { Post, Image, Category, User, Hashtag } from "../../db/index";
-import { image, post, hashtag } from "../../types/graph";
+import { image, post, hashtag, args } from "../../types/graph";
 export default {
   Query: {
     /**
      * 모든 게시물 불러오기 (카테고리별 불러오기, 해시태그별 불러오기, )
      */
-    findPost: async (_: any, args: any) => {
+    findPost: async (_: any, args: {args: args}) => {
+      console.log(args)
       try {
         const result = await Post.findAndCountAll({
           attributes: ['post_idx', 'category_idx', 'user_idx', 'image_idx', 'post_title', 'post_content'],

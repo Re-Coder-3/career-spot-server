@@ -72,6 +72,12 @@ type Hashtag {
   hashtag_name: String!
 }
 
+input args {
+  field: String!
+  operator: String!
+  value: String!
+}
+
 type Scrap {
   scrap_idx: Int!
   user_idx: Int!

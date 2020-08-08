@@ -1,5 +1,5 @@
 type Query {
-  findPost: returnType!
+  findPost(args: args!): returnType!
 }
 
 type Mutation {
@@ -48,5 +48,11 @@ type Image {
 type Hashtag {
   hashtag_idx: Int!
   hashtag_name: String!
+}
+
+input args{
+  field: String!
+  operator: String!
+  value: String!
 }
 
