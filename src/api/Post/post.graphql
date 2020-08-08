@@ -51,6 +51,16 @@ type Hashtag {
 }
 
 input args{
+<<<<<<< HEAD
+=======
+  offset: Int!,
+  limit: Int!,
+  filter: [filters!]!
+}
+
+
+input filters {
+>>>>>>> 18594f6be7f324c38e4c6c63a943cf9a5610b436
   field: String!
   operator: String!
   value: String!
