@@ -17,6 +17,7 @@ type Mutation {
   toggleHeart(target_user_idx: Int, target_post_idx: Int): toggleHeartReturnType!
   singleUpload(file: Upload!): String!
   createPost(image: image!, post: post!, hashtag: hashtag): Post!
+  deletePost(post_idx: Int!): Int!
   createScrap(scrap: scrap!): Scrap!
   kakaoAuth(code: String!): String!
   createUser(user_email: String!, user_password: String!): createUserReturnType!

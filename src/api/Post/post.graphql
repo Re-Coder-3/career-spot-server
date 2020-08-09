@@ -4,6 +4,7 @@ type Query {
 
 type Mutation {
   createPost(image: image!, post: post!, hashtag: hashtag): Post!
+  deletePost(post_idx: Int!): Int!
 }
 
 type Post {
