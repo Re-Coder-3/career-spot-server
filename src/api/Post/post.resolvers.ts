@@ -12,7 +12,7 @@ export default {
       try {
         const result = await Post.findAndCountAll({
           where: changeWhere(args_.filter),
-          attributes: ['post_idx', 'category_idx', 'user_idx', 'image_idx', 'post_title', 'post_content', 'createdAt', 'updatedAt'],
+          attributes: ['post_idx', 'category_idx', 'user_idx', 'image_idx', 'post_title', 'post_content', 'post_location', 'createdAt', 'updatedAt'],
           include: [
             {   
               model: Category,
@@ -75,9 +75,10 @@ export default {
           category_idx: post.category_idx,
           user_idx: post.user_idx,
           image_idx: image_idx,
+          hashtag_idx: hashtag_idx,
           post_title: post.post_title,
           post_content: post.post_content,
-          hashtag_idx: hashtag_idx
+          post_location: post.post_location
         });
 
       }catch(e){

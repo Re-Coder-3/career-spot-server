@@ -26,7 +26,7 @@ export const getUser = (context: Context) => {
 export const changeWhere = (filter: any) => {
   let fieldList = [];
   let where: any = {};
-  
+
   let filter_ = filter.filters
   for (let i = 0; i < filter_.length; i++) {
     if (filter_[i].operator == 'like') {
@@ -48,6 +48,6 @@ export const changeWhere = (filter: any) => {
       [Op.or]: fieldList[0]
      };
   }
-
+  console.log(returnWhere)
   return returnWhere;
 };
