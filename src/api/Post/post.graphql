@@ -13,6 +13,7 @@ type Post {
   image_idx: Int!
   post_title: String!
   post_content: String!
+  post_location: String!
   category: Category!
   user: User!
   image: Image!
@@ -33,6 +34,7 @@ input post{
   image_idx: Int!
   post_title: String!
   post_content: String!
+  post_location: String!
 }
 
 input hashtag{
