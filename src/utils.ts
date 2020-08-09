@@ -26,21 +26,28 @@ export const getUser = (context: Context) => {
 export const changeWhere = (filter: any) => {
   let fieldList = [];
   let where: any = {};
-  console.log(filter);
-
-  for (let i = 0; i < filter.length; i++) {
-    if (filter[i].operator == 'like') {
-      where[filter[i].field] = {
-        [Op.like]: `%${filter[i].value}%`,
+  
+  let filter_ = filter.filters
+  for (let i = 0; i < filter_.length; i++) {
+    if (filter_[i].operator == 'like') {
+      where[filter_[i].field] = {
+        [Op.like]: `%${filter_[i].value}%`,
       };
     }
     fieldList.push(where);
-    console.log('where => ', where);
   }
 
   let returnWhere = {};
 
-  returnWhere = { [Op.and]: fieldList };
+  if(filter.logic == "and"){
+    returnWhere = { 
+      [Op.and]: fieldList[0]
+     };
+  }else if(filter.logic == "or"){
+    returnWhere = { 
+      [Op.or]: fieldList[0]
+     };
+  }
 
   return returnWhere;
 };

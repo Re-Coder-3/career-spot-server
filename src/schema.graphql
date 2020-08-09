@@ -109,7 +109,12 @@ type Hashtag {
 input args {
   offset: Int!
   limit: Int!
-  filter: [filters!]!
+  filter: filter
+}
+
+input filter {
+  logic: String!
+  filters: [filters!]!
 }
 
 input filters {

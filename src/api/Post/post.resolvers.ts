@@ -8,7 +8,7 @@ export default {
      */
     findPost: async (_: any, args: { args: args }) => {
       const args_ = args.args;
-
+      console.log(args)
       try {
         const result = await Post.findAndCountAll({
           where: changeWhere(args_.filter),
