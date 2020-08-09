@@ -87,5 +87,25 @@ export default {
       }
       return args.post;
     },
+
+    deletePost: async (_:any, args: {post_idx: number}) => {
+      // review 가 있는 post는 삭제를 못해야하나????????
+      // 뭐지????
+      // 어떻게 해야하지?????? 고민 좀 해보자...
+
+      
+      try{
+        Post.destroy({
+          where: {
+            post_idx: args.post_idx
+          }
+        })
+
+        return args.post_idx;
+      }catch(err){
+
+      }
+
+    }
   }
 };
