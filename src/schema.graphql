@@ -1,5 +1,7 @@
 type Query {
   findCategory: [Category]!
+  getHeartUser: getHeartUserReturnType!
+  getHeartPost: getHeartPostReturnType!
   findPost(args: args!): returnType!
   meProfile: meProfileReturnType!
   findScrap: [Scrap]!
@@ -15,6 +17,7 @@ type Mutation {
   toggleHeart(target_user_idx: Int, target_post_idx: Int): toggleHeartReturnType!
   singleUpload(file: Upload!): String!
   createPost(image: image!, post: post!, hashtag: hashtag): Post!
+  deletePost(post_idx: Int!): Int!
   createScrap(scrap: scrap!): Scrap!
   kakaoAuth(code: String!): String!
   createUser(user_email: String!, user_password: String!): createUserReturnType!
@@ -27,6 +30,25 @@ type Mutation {
 type Category {
   category_idx: Int!
   category_name: String!
+}
+
+type Heart {
+  heart_idx: Int!
+  target_user_idx: Int
+  target_post_idx: Int
+  user: User
+}
+
+type getHeartUserReturnType {
+  status: Int!
+  data: Heart
+  error: String
+}
+
+type getHeartPostReturnType {
+  status: Int!
+  data: [Post]
+  error: String
 }
 
 type toggleHeartReturnType {
@@ -44,11 +66,16 @@ type Post {
   image_idx: Int!
   post_title: String!
   post_content: String!
+  post_location: String!
   category: Category!
   user: User!
   image: Image!
   hashtag: Hashtag!
+  createdAt: Date!
+  updatedAt: Date!
 }
+
+scalar Date
 
 input image {
   image_url: String
@@ -60,6 +87,7 @@ input post {
   image_idx: Int!
   post_title: String!
   post_content: String!
+  post_location: String!
 }
 
 input hashtag {
@@ -84,7 +112,12 @@ type Hashtag {
 input args {
   offset: Int!
   limit: Int!
-  filter: [filters!]!
+  filter: filter
+}
+
+input filter {
+  logic: String!
+  filters: [filters!]!
 }
 
 input filters {

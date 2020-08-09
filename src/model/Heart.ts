@@ -32,6 +32,7 @@ export function HeartFactory(sequelize: Sequelize): HeartStatic {
       target_user_idx: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        unique: true,
         references: {
           model: 'user',
           key: 'user_idx',
@@ -40,6 +41,7 @@ export function HeartFactory(sequelize: Sequelize): HeartStatic {
       target_post_idx: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        unique: true,
         references: {
           model: 'post',
           key: 'post_idx',

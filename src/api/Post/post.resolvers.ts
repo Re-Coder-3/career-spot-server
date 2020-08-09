@@ -8,11 +8,11 @@ export default {
      */
     findPost: async (_: any, args: { args: args }) => {
       const args_ = args.args;
-
+      console.log(args)
       try {
         const result = await Post.findAndCountAll({
           where: changeWhere(args_.filter),
-          attributes: ['post_idx', 'category_idx', 'user_idx', 'image_idx', 'post_title', 'post_content'],
+          attributes: ['post_idx', 'category_idx', 'user_idx', 'image_idx', 'post_title', 'post_content', 'post_location', 'createdAt', 'updatedAt'],
           include: [
             {   
               model: Category,
@@ -75,9 +75,10 @@ export default {
           category_idx: post.category_idx,
           user_idx: post.user_idx,
           image_idx: image_idx,
+          hashtag_idx: hashtag_idx,
           post_title: post.post_title,
           post_content: post.post_content,
-          hashtag_idx: hashtag_idx
+          post_location: post.post_location
         });
 
       }catch(e){
@@ -86,5 +87,25 @@ export default {
       }
       return args.post;
     },
+
+    deletePost: async (_:any, args: {post_idx: number}) => {
+      // review 가 있는 post는 삭제를 못해야하나????????
+      // 뭐지????
+      // 어떻게 해야하지?????? 고민 좀 해보자...
+
+      
+      try{
+        Post.destroy({
+          where: {
+            post_idx: args.post_idx
+          }
+        })
+
+        return args.post_idx;
+      }catch(err){
+
+      }
+
+    }
   }
 };

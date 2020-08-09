@@ -8,6 +8,7 @@ export interface PostAttributes {
   hashtag_idx: number;
   post_title: string;
   post_content: string;
+  post_location: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -70,6 +71,19 @@ export function PostFactory(sequelize: Sequelize): PostStatic {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+      },
+      post_location: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
       },
     },
     {

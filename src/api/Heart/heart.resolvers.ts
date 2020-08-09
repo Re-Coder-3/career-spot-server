@@ -1,10 +1,39 @@
 import { ToggleHeartMutationArgs, toggleHeartReturnType } from '../../types/graph';
 import { Context } from 'graphql-yoga/dist/types';
 import { getUser } from '../../utils';
-import { Heart } from '../../db';
+import { Heart, User } from '../../db';
 import { Op } from 'sequelize';
 
 export default {
+  Query: {
+    getHeartUser: async (_: any, __: any, context: Context) => {
+      try {
+        const u = getUser(context);
+        const user_idx = u?.user_idx!;
+        const heartUser = await Heart.findAll({
+          where: {
+            user_idx,
+          },
+          attributes: ['heart_idx', 'target_user_idx', 'target_post_idx', 'user_idx'],
+          include: [
+            {
+              model: User,
+              foreignKey: 'target_user_idx',
+              required: true,
+            },
+          ],
+        });
+        console.log(heartUser);
+        return {
+          status: 200,
+          data: heartUser,
+          error: null,
+        };
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
   Mutation: {
     toggleHeart: async (
       _: any,
