@@ -5,6 +5,18 @@ type Query {
 type Mutation {
   createPost(image: image!, post: post!, hashtag: hashtag): Post!
   deletePost(post_idx: Int!): Int!
+  createPost1(
+    image_url: String
+    post_title: String!
+    post_content: String!
+    post_location: String
+    hashtag_name: String
+  ): createPostReturnType!
+}
+
+type createPostReturnType {
+  status: Int!
+  error: String
 }
 
 type Post {
@@ -25,11 +37,11 @@ type Post {
 
 scalar Date
 
-input image{
+input image {
   image_url: String
 }
 
-input post{
+input post {
   category_idx: Int!
   user_idx: Int!
   image_idx: Int!
@@ -38,7 +50,7 @@ input post{
   post_location: String!
 }
 
-input hashtag{
+input hashtag {
   hashtag_name: String
 }
 
@@ -57,9 +69,9 @@ type Hashtag {
   hashtag_name: String!
 }
 
-input args{
-  offset: Int!,
-  limit: Int!,
+input args {
+  offset: Int!
+  limit: Int!
   filter: filter
 }
 
@@ -73,4 +85,3 @@ input filters {
   operator: String!
   value: String!
 }
-
