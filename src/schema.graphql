@@ -4,6 +4,7 @@ type Query {
   getHeartPost: getHeartPostReturnType!
   findPost(args: args!): returnType!
   meProfile: meProfileReturnType!
+  findReview(args: args!): findReviewReturnType!
   findScrap: [Scrap]!
   findScrapForUser: PostreturnType!
   findAllUser: UserReturnType!
@@ -19,6 +20,7 @@ type Mutation {
   createPost(image: image!, post: post!, hashtag: hashtag): Post!
   deletePost(post_idx: Int!): Int!
   createPost1(image_url: String, post_title: String!, post_content: String!, post_location: String, hashtag_name: String): createPostReturnType!
+  writeReview(review: review!): writeReviewReturnType!
   createScrap(scrap: scrap!): Scrap!
   kakaoAuth(code: String!): String!
   createUser(user_email: String!, user_password: String!): createUserReturnType!
@@ -150,6 +152,38 @@ type Profile {
   category: Category
   user: User
   image: Image
+}
+
+type Review {
+  review_idx: Int!
+  user_idx: Int!
+  target_user_idx: Int!
+  review_content: String!
+  review_stars: Int!
+  user: User
+}
+
+type returnReview {
+  count: Int!
+  rows: [Review!]!
+}
+
+type findReviewReturnType {
+  status: Int!
+  data: [returnReview!]
+  error: String
+}
+
+input review {
+  user_idx: Int
+  target_user_idx: Int!
+  review_content: String!
+  review_stars: Int!
+}
+
+type writeReviewReturnType {
+  status: Int!
+  error: String
 }
 
 type Scrap {

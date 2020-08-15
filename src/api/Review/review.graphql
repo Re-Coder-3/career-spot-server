@@ -1,0 +1,39 @@
+type Query {
+  findReview(args: args!): findReviewReturnType!
+}
+
+type Mutation {
+  writeReview(review: review!): writeReviewReturnType!
+}
+
+type Review {
+  review_idx: Int!
+  user_idx: Int!
+  target_user_idx: Int!
+  review_content: String!
+  review_stars: Int!
+  user: User
+}
+
+type returnReview {
+  count: Int!
+  rows: [Review!]!
+}
+
+type findReviewReturnType {
+  status: Int!
+  data: [returnReview!]
+  error: String
+}
+
+input review{
+  user_idx: Int
+  target_user_idx: Int!
+  review_content: String!
+  review_stars: Int!
+}
+
+type writeReviewReturnType {
+  status: Int!
+  error: String
+}
