@@ -16,7 +16,7 @@ type Heart {
 
 type getHeartUserReturnType {
   status: Int!
-  data: Heart
+  data: [Heart]
   error: String
 }
 
