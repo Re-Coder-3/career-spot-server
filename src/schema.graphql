@@ -18,6 +18,7 @@ type Mutation {
   singleUpload(file: Upload!): String!
   createPost(image: image!, post: post!, hashtag: hashtag): Post!
   deletePost(post_idx: Int!): Int!
+  createPost1(image_url: String, post_title: String!, post_content: String!, post_location: String, hashtag_name: String): createPostReturnType!
   createScrap(scrap: scrap!): Scrap!
   kakaoAuth(code: String!): String!
   createUser(user_email: String!, user_password: String!): createUserReturnType!
@@ -58,6 +59,11 @@ type toggleHeartReturnType {
 }
 
 scalar Upload
+
+type createPostReturnType {
+  status: Int!
+  error: String
+}
 
 type Post {
   post_idx: Int

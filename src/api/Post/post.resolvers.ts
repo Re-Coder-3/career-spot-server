@@ -1,6 +1,7 @@
-import { Post, Image, Category, User, Hashtag } from "../../db/index";
-import { image, post, hashtag, args } from "../../types/graph";
-import { changeWhere } from "../../utils";
+import { Post, Image, Category, User, Hashtag } from '../../db/index';
+import { image, post, hashtag, args, CreatePost1MutationArgs } from '../../types/graph';
+import { changeWhere, getUser } from '../../utils';
+import { Context } from 'graphql-yoga/dist/types';
 export default {
   Query: {
     /**
@@ -8,35 +9,45 @@ export default {
      */
     findPost: async (_: any, args: { args: args }) => {
       const args_ = args.args;
-      console.log(args)
+      console.log(args);
       try {
         const result = await Post.findAndCountAll({
           where: changeWhere(args_.filter),
-          attributes: ['post_idx', 'category_idx', 'user_idx', 'image_idx', 'post_title', 'post_content', 'post_location', 'createdAt', 'updatedAt'],
+          attributes: [
+            'post_idx',
+            'category_idx',
+            'user_idx',
+            'image_idx',
+            'post_title',
+            'post_content',
+            'post_location',
+            'createdAt',
+            'updatedAt',
+          ],
           include: [
-            {   
+            {
               model: Category,
               required: true,
-              attributes: ['category_name']
+              attributes: ['category_name'],
             },
-            {   
+            {
               model: Image,
               required: true,
-              attributes: ['image_url']
+              attributes: ['image_url'],
             },
-            {   
+            {
               model: Hashtag,
               required: true,
-              attributes: ['hashtag_name']
+              attributes: ['hashtag_name'],
             },
-            {   
+            {
               model: User,
               required: true,
-              attributes: ['user_idx']
-            }
+              attributes: ['user_idx'],
+            },
           ],
           offset: args_.offset,
-          limit: args_.limit
+          limit: args_.limit,
         });
 
         return result;
@@ -46,66 +57,104 @@ export default {
     },
   },
   Mutation: {
+    createPost1: async (_: any, args: CreatePost1MutationArgs, context: Context) => {
+      const user = getUser(context);
+      const userId = user?.user_idx!;
+
+      try {
+        const { image_url, post_title, post_content, post_location, hashtag_name } = args;
+        // * image create
+        const image_result = await Image.create({
+          image_idx: '',
+          image_url,
+        });
+        const image_idx = Number(image_result.image_idx);
+
+        // * hashtag create
+        const hashtag_result = await Hashtag.create({
+          hashtag_idx: '',
+          hashtag_name: hashtag_name ?? '상관없음',
+        });
+        const hashtag_idx = Number(hashtag_result.hashtag_idx);
+
+        // * post create
+        await Post.create({
+          post_idx: '',
+          hashtag_idx,
+          image_idx,
+          user_idx: userId,
+          post_content,
+          post_location: post_location ?? '장소무관',
+          post_title,
+          category_idx: 1,
+        });
+
+        return {
+          status: 200,
+          error: null,
+        };
+      } catch (error) {
+        console.log(error);
+        return {
+          status: 500,
+          error: 'serverError',
+        };
+      }
+    },
     /**
      * 글 작성하기
      */
-    createPost: async (_:any, args: {image: image, post: post, hashtag: hashtag}) => {
-      const post:any = args.post;
-      const image:any = args.image;
-      const hashtag:any = args.hashtag;
+    createPost: async (_: any, args: { image: image; post: post; hashtag: hashtag }) => {
+      const post: any = args.post;
+      const image: any = args.image;
+      const hashtag: any = args.hashtag;
 
-      try{
-
+      try {
         const image_result = await Image.create({
-          image_idx: "",
-          image_url: image.image_url
-        })
+          image_idx: '',
+          image_url: image.image_url,
+        });
 
         const image_idx = Number(image_result.image_idx); // 생성된 이미지 idx
 
         const hashtag_result = await Hashtag.create({
-          hashtag_idx: "",
-          hashtag_name: hashtag.hashtag_name
-        })
+          hashtag_idx: '',
+          hashtag_name: hashtag.hashtag_name,
+        });
 
         const hashtag_idx = Number(hashtag_result.hashtag_idx); // 생성된 해시태그 idx
 
         await Post.create({
-          post_idx: "",
+          post_idx: '',
           category_idx: post.category_idx,
           user_idx: post.user_idx,
           image_idx: image_idx,
           hashtag_idx: hashtag_idx,
           post_title: post.post_title,
           post_content: post.post_content,
-          post_location: post.post_location
+          post_location: post.post_location,
         });
-
-      }catch(e){
-        console.log(e)
-        throw e
+      } catch (e) {
+        console.log(e);
+        throw e;
       }
       return args.post;
     },
 
-    deletePost: async (_:any, args: {post_idx: number}) => {
+    deletePost: async (_: any, args: { post_idx: number }) => {
       // review 가 있는 post는 삭제를 못해야하나????????
       // 뭐지????
       // 어떻게 해야하지?????? 고민 좀 해보자...
 
-      
-      try{
+      try {
         Post.destroy({
           where: {
-            post_idx: args.post_idx
-          }
-        })
+            post_idx: args.post_idx,
+          },
+        });
 
         return args.post_idx;
-      }catch(err){
-
-      }
-
-    }
-  }
+      } catch (err) {}
+    },
+  },
 };
