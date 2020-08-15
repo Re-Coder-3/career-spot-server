@@ -8,6 +8,7 @@ import { ScrapFactory } from '../model/Scrap';
 import { HashtagFactory } from '../model/Hashtag';
 import { ProfileFactory } from '../model/Profile';
 import { HeartFactory } from '../model/Heart';
+import { ReviewFactory } from '../model/Review';
 
 const db = new Sequelize(config.database, config.username, config.password, {
   host: config.host,
@@ -40,6 +41,7 @@ export const Scrap = ScrapFactory(db);
 export const Hashtag = HashtagFactory(db);
 export const Profile = ProfileFactory(db);
 export const Heart = HeartFactory(db);
+export const Review = ReviewFactory(db);
 
 Post.belongsTo(Category, { foreignKey: 'category_idx' });
 Post.belongsTo(User, { foreignKey: 'user_idx' });
@@ -60,4 +62,7 @@ Profile.belongsTo(User, { foreignKey: 'user_idx' });
 Profile.belongsTo(Image, { foreignKey: 'user_profile_img' });
 Profile.belongsTo(Category, { foreignKey: 'user_like_category_idx' });
 
-Heart.hasMany(User, { foreignKey: 'target_user_idx' });
+// Heart.hasMany(User, { foreignKey: 'target_user_idx' });
+
+Review.belongsTo(User, { foreignKey: 'user_idx' });
+Review.belongsTo(User, { foreignKey: 'target_user_idx' });
