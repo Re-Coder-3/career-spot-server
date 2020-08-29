@@ -64,5 +64,5 @@ Profile.belongsTo(Category, { foreignKey: 'user_like_category_idx' });
 
 // Heart.hasMany(User, { foreignKey: 'target_user_idx' });
 
-Review.belongsTo(User, { foreignKey: 'user_idx' });
-Review.belongsTo(User, { foreignKey: 'target_user_idx' });
+// Review.belongsTo(User, { foreignKey: 'user_idx' });
+Review.belongsTo(User, { foreignKey: 'target_user_idx', targetKey: 'user_idx', as: 'target_user' });

@@ -17,10 +17,11 @@ const storeUpload = ({ stream, filename }: any) =>
 export default {
   Mutation: {
     singleUpload: async (_: any, args: SingleUploadMutationArgs) => {
-      const { stream, filename } = await args.file;
-      await storeUpload({ stream, filename });
-      console.log(filename);
-      return `https://storage.googleapis.com/career-spot/${filename}`;
+      console.log(args)
+      // const { stream, filename } = await args.file;
+      // await storeUpload({ stream, filename });
+      // console.log(filename);
+      return `https://storage.googleapis.com/career-spot/test`;
     },
   },
 };
