@@ -1,7 +1,7 @@
 import { ToggleHeartMutationArgs, toggleHeartReturnType } from '../../types/graph';
 import { Context } from 'graphql-yoga/dist/types';
 import { getUser } from '../../utils';
-import { Heart, User } from '../../db';
+import { Heart, User, Profile } from '../../db';
 import { Op } from 'sequelize';
 
 export default {
@@ -20,6 +20,12 @@ export default {
               model: User,
               foreignKey: 'target_user_idx',
               required: true,
+              include: [
+                {
+                  model: Profile,
+                  required: false,
+                },
+              ],
             },
           ],
         });

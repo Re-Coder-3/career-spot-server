@@ -51,6 +51,7 @@ Post.belongsTo(Hashtag, { foreignKey: 'hashtag_idx' });
 Scrap.belongsTo(Post, { foreignKey: 'post_idx' });
 Scrap.belongsTo(User, { foreignKey: 'user_idx' });
 
+Heart.belongsTo(User, { foreignKey: 'target_user_idx' });
 // User.belongsTo(Image, { foreignKey: 'image_idx' });
 
 // User.belongsTo(Post, {through: "post_user"});
@@ -62,7 +63,7 @@ Profile.belongsTo(User, { foreignKey: 'user_idx' });
 Profile.belongsTo(Image, { foreignKey: 'user_profile_img' });
 Profile.belongsTo(Category, { foreignKey: 'user_like_category_idx' });
 
-// Heart.hasMany(User, { foreignKey: 'target_user_idx' });
+Heart.belongsTo(User, { foreignKey: 'target_user_idx' });
 
 // Review.belongsTo(User, { foreignKey: 'user_idx' });
 Review.belongsTo(User, { foreignKey: 'target_user_idx', targetKey: 'user_idx', as: 'target_user' });
