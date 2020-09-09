@@ -127,6 +127,7 @@ export default {
           }
           const newProfileImg = await Image.create({
             image_idx: '',
+            target_post_idx: null,
             image_url: user_profile_img,
           });
 
