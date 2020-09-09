@@ -1,10 +1,10 @@
-import { BuildOptions, DataTypes, Model, Sequelize } from "sequelize";
+import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
 
 export interface PostAttributes {
   post_idx: number | string;
   category_idx: number;
   user_idx: number;
-  image_idx: number;
+  image_idx: number | null;
   hashtag_idx: number;
   post_title: string;
   post_content: string;
@@ -21,7 +21,7 @@ export type PostStatic = typeof Model & {
 
 export function PostFactory(sequelize: Sequelize): PostStatic {
   return <PostStatic>sequelize.define(
-    "post",
+    'post',
     {
       post_idx: {
         type: DataTypes.INTEGER,
@@ -34,24 +34,24 @@ export function PostFactory(sequelize: Sequelize): PostStatic {
         unique: true,
         references: {
           model: 'category',
-          key: 'cateogory_idx'
-        }
+          key: 'cateogory_idx',
+        },
       },
       user_idx: {
         type: DataTypes.INTEGER,
         references: {
           model: 'user',
-          key: 'user_idx'
-        }
+          key: 'user_idx',
+        },
       },
       image_idx: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         unique: true,
         references: {
           model: 'image',
-          key: 'image_idx'
-        }
+          key: 'image_idx',
+        },
       },
       hashtag_idx: {
         type: DataTypes.INTEGER,
@@ -59,8 +59,8 @@ export function PostFactory(sequelize: Sequelize): PostStatic {
         unique: true,
         references: {
           model: 'hashtag',
-          key: 'hashtag_idx'
-        }
+          key: 'hashtag_idx',
+        },
       },
       post_title: {
         type: DataTypes.STRING,
@@ -88,6 +88,6 @@ export function PostFactory(sequelize: Sequelize): PostStatic {
     },
     {
       freezeTableName: true,
-    }
+    },
   );
 }

@@ -6,7 +6,7 @@ type Mutation {
   createPost(image: image!, post: post!, hashtag: hashtag): Post!
   deletePost(post_idx: Int!): Int!
   createPost1(
-    image_url: String
+    image_url: [String]
     post_title: String!
     post_content: String!
     post_location: String
