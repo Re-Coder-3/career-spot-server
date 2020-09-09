@@ -4,7 +4,7 @@ type Query {
   getHeartPost: getHeartPostReturnType!
   findPost(args: args!): returnType!
   meProfile: meProfileReturnType!
-  findReview(args: args!): findReviewReturnType!
+  findReview(args: args!): String!
   findScrap: [Scrap]!
   findScrapForUser: PostreturnType!
   findAllUser: UserReturnType!
@@ -160,7 +160,7 @@ type Review {
   target_user_idx: Int!
   review_content: String!
   review_stars: Int!
-  user: User
+  target_user: User
 }
 
 type returnReview {

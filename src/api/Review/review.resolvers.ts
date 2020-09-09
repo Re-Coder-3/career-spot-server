@@ -1,7 +1,7 @@
 import { args, review } from '../../types/graph';
 import { Context } from 'graphql-yoga/dist/types';
 import { getUser, changeWhere } from '../../utils';
-import { Review } from '../../db';
+import { Review, User, Profile } from '../../db';
 
 export default {
   Query: {
@@ -11,16 +11,34 @@ export default {
         const u = getUser(context);
         const user_idx = u?.user_idx!;
         const result = await Review.findAll({
-          where: changeWhere(args_.filter),
+          // where: changeWhere(args_.filter),
+          attributes: ['review_idx', 'review_stars', 'review_content', 'user_idx', 'target_user_idx'],
           offset: args_.offset,
-          limit: args_.limit
+          limit: args_.limit,
+          include: [
+            {
+              model: User,
+              required: true,
+              as: 'target_user',
+              attributes: ['user_idx', 'user_email'],
+              include: [
+                {
+                  model: Profile,
+                  required: true,
+                  attributes: ['user_name']
+                }
+              ]
+            }
+          ]
         });
-        console.log(result);
-        return {
-          status: 200,
-          data: result,
-          error: null,
-        };
+        console.log(JSON.stringify(result))
+        // return {
+        //   status: 200,
+        //   data: result,
+        //   error: null,
+        // };
+
+        return "test"
       } catch (e) {
         console.log(e);
       }
