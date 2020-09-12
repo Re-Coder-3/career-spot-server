@@ -13,7 +13,7 @@ export default {
       console.log(args);
       try {
         const result = await Post.findAndCountAll({
-          // where: changeWhere(args_.filter),
+          where: changeWhere(args_.filter),
           attributes: [
             'post_idx',
             'category_idx',
@@ -29,7 +29,6 @@ export default {
             {
               model: Category,
               required: true,
-              attributes: ['category_name'],
             },
             {
               model: User,
@@ -38,8 +37,11 @@ export default {
             {
               model: Image,
               required: true,
-              attributes: ['image_url']
             },
+            {
+              model: Hashtag,
+              required: true
+            }
           ],
           offset: args_.offset,
           limit: args_.limit,

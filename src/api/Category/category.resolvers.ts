@@ -11,7 +11,6 @@ export default {
       const { id } = args;
       try {
         const result = await Category.findAndCountAll({
-          attributes: ['category_name'],
           include: [
             {
               model: Image,
