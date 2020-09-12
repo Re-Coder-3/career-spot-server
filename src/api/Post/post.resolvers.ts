@@ -55,13 +55,18 @@ export default {
 
       try {
         const { image_url, post_title, post_content, post_location, hashtag_name } = args;
+        let arr = image_url!;
         // * image create
-        const image_result = await Image.create({
-          image_idx: '',
-          image_url,
-        });
-        const image_idx = Number(image_result.image_idx);
-
+        const image_arr = await Promise.all(
+          arr.map(async (url) => {
+            const image_result = await Image.create({
+              target_post_idx: 40000,
+              image_idx: '',
+              image_url: url,
+            });
+            return Number(image_result.image_idx);
+          }),
+        );
         // * hashtag create
         const hashtag_result = await Hashtag.create({
           hashtag_idx: '',
@@ -70,16 +75,24 @@ export default {
         const hashtag_idx = Number(hashtag_result.hashtag_idx);
 
         // * post create
-        await Post.create({
+        const newPost = await Post.create({
           post_idx: '',
           hashtag_idx,
-          image_idx,
+          image_idx: null,
           user_idx: userId,
           post_content,
           post_location: post_location ?? '장소무관',
           post_title,
           category_idx: 1,
         });
+        let a = await Image.update(
+          { target_post_idx: Number(newPost.post_idx) },
+          {
+            where: {
+              target_post_idx: 40000,
+            },
+          },
+        );
 
         return {
           status: 200,
@@ -92,45 +105,6 @@ export default {
           error: 'serverError',
         };
       }
-    },
-    /**
-     * 글 작성하기
-     */
-    createPost: async (_: any, args: { image: image; post: post; hashtag: hashtag }) => {
-      const post: any = args.post;
-      const image: any = args.image;
-      const hashtag: any = args.hashtag;
-
-      try {
-        const image_result = await Image.create({
-          image_idx: '',
-          image_url: image.image_url,
-        });
-
-        const image_idx = Number(image_result.image_idx); // 생성된 이미지 idx
-
-        const hashtag_result = await Hashtag.create({
-          hashtag_idx: '',
-          hashtag_name: hashtag.hashtag_name,
-        });
-
-        const hashtag_idx = Number(hashtag_result.hashtag_idx); // 생성된 해시태그 idx
-
-        await Post.create({
-          post_idx: '',
-          category_idx: post.category_idx,
-          user_idx: post.user_idx,
-          image_idx: image_idx,
-          hashtag_idx: hashtag_idx,
-          post_title: post.post_title,
-          post_content: post.post_content,
-          post_location: post.post_location,
-        });
-      } catch (e) {
-        console.log(e);
-        throw e;
-      }
-      return args.post;
     },
 
     deletePost: async (_: any, args: { post_idx: number }) => {

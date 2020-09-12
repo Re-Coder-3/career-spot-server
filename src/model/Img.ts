@@ -3,6 +3,7 @@ import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
 export interface ImageAttributes {
   image_idx: number | string;
   image_url: string | null;
+  target_post_idx: number | null;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -26,6 +27,15 @@ export function ImageFactory(sequelize: Sequelize): ImageStatic {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+      },
+      target_post_idx: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        unique: true,
+        references: {
+          model: 'post',
+          key: 'post_idx',
+        },
       },
     },
     {
