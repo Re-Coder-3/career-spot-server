@@ -1,7 +1,8 @@
-import { Post, Image, Category, User, Hashtag } from '../../db/index';
+import { Post, Image, Category, User, Hashtag, Profile } from '../../db/index';
 import { image, post, hashtag, args, CreatePost1MutationArgs } from '../../types/graph';
 import { changeWhere, getUser } from '../../utils';
 import { Context } from 'graphql-yoga/dist/types';
+import { profile } from 'console';
 export default {
   Query: {
     /**
@@ -12,7 +13,7 @@ export default {
       console.log(args);
       try {
         const result = await Post.findAndCountAll({
-          where: changeWhere(args_.filter),
+          // where: changeWhere(args_.filter),
           attributes: [
             'post_idx',
             'category_idx',
@@ -31,19 +32,8 @@ export default {
               attributes: ['category_name'],
             },
             {
-              model: Image,
-              required: true,
-              attributes: ['image_url'],
-            },
-            {
-              model: Hashtag,
-              required: true,
-              attributes: ['hashtag_name'],
-            },
-            {
               model: User,
               required: true,
-              attributes: ['user_idx'],
             },
           ],
           offset: args_.offset,
@@ -51,7 +41,9 @@ export default {
         });
 
         return result;
-      } catch {
+      } catch(err) {
+        console.log("왜안되는지이유나들어보자 ")
+        console.log(err)
         return false;
       }
     },

@@ -27,6 +27,11 @@ export const changeWhere = (filter: any) => {
   let fieldList = [];
   let where: any = {};
 
+  if(!filter){
+    console.log("여기 찍혀야함....")
+    return {}
+  }
+
   let filter_ = filter.filters
   for (let i = 0; i < filter_.length; i++) {
     if (filter_[i].operator == 'like') {

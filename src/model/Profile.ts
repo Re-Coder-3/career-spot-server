@@ -30,15 +30,6 @@ export function ProfileFactory(sequelize: Sequelize): ProfileStatic {
         autoIncrement: true,
         primaryKey: true,
       },
-      user_idx: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        unique: true,
-        references: {
-          model: 'user',
-          key: 'user_idx',
-        },
-      },
       user_name: {
         type: DataTypes.STRING,
         allowNull: true,

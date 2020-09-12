@@ -19,9 +19,19 @@ export default {
   Query: {
     findAllUser: async () => {
       try {
-        const result = await User.findAndCountAll({});
+        const result = await User.findAndCountAll(
+          {
+            include: [
+              {
+                model: Profile,
+                required: false,
+              }
+            ]
+          }
+        );
         return result;
-      } catch {
+      } catch (err) {
+        console.log(err)
         return false;
       }
     },
@@ -53,7 +63,7 @@ export default {
           user_idx: '',
           user_email,
           user_password: hashedPassword,
-          user_profile_idx: '',
+          profile_idx: '',
         });
         // TODO: 처음에는 default profile data가 있으면 거기 연결해도 괜찮을듯합니다.
         return {
@@ -110,10 +120,10 @@ export default {
           // * 프론트엔드에서는 프로필수정을 수행할때 input창에 value를
           // * 백엔드에서 받아온 유저 정보를 미리 넣어놓아야 수정할때
           // * 유저가 수정하지않은사항은 이전값 그대로 업데이트 할수있습니다.
-          if (user?.user_profile_idx) {
+          if (user?.profile_idx) {
             await Profile.destroy({
               where: {
-                profile_idx: user?.user_profile_idx,
+                profile_idx: user?.profile_idx,
               },
             });
           }
@@ -143,7 +153,7 @@ export default {
 
           await User.update(
             {
-              user_profile_idx: profile_result.profile_idx,
+              profile_idx: profile_result.profile_idx,
             },
             {
               where: {

@@ -4,7 +4,7 @@ export interface UserAttributes {
   user_idx: number | string;
   user_email: string;
   user_password: string;
-  user_profile_idx: number | null | string;
+  profile_idx: number | null | string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -33,11 +33,12 @@ export function UserFactory(sequelize: Sequelize): UserStatic {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      user_profile_idx: {
+      profile_idx: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        unique: true,
         references: {
-          model: 'Profile',
+          model: 'profile',
           key: 'profile_idx',
         },
       },
