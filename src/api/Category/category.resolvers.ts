@@ -1,4 +1,4 @@
-import { Category } from "../../db/index";
+import { Category, Image } from "../../db/index";
 import {
   CreateCategoryMutationArgs,
   UpdateCategoryMutationArgs,
@@ -10,9 +10,19 @@ export default {
     findCategory: async (_: any, args: any) => {
       const { id } = args;
       try {
-        const result = await Category.findAndCountAll({});
-        return result.rows;
-      } catch {
+        const result = await Category.findAndCountAll({
+          attributes: ['category_name'],
+          include: [
+            {
+              model: Image,
+              required: true,
+              attributes: ['image_url']
+            }
+          ]
+        });
+        return result;
+      } catch(err) {
+        console.log(err)
         return false;
       }
     },

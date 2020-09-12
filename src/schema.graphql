@@ -1,5 +1,5 @@
 type Query {
-  findCategory: [Category]!
+  findCategory: returnCategoryType!
   getHeartUser: getHeartUserReturnType!
   getHeartPost: getHeartPostReturnType!
   findPost(args: args!): returnType!
@@ -30,9 +30,15 @@ type Mutation {
   deleteUser(user_idx: Int!): User!
 }
 
+type returnCategoryType {
+  count: Int!
+  rows: [Category!]!
+}
+
 type Category {
   category_idx: Int!
   category_name: String!
+  image: [Image]!
 }
 
 type Heart {

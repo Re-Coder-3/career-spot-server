@@ -35,6 +35,11 @@ export default {
               model: User,
               required: true,
             },
+            {
+              model: Image,
+              required: true,
+              attributes: ['image_url']
+            },
           ],
           offset: args_.offset,
           limit: args_.limit,

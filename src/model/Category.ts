@@ -3,6 +3,7 @@ import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
 export interface CategoryAttributes {
   category_idx: number | string;
   category_name: string | null;
+  image_idx: number | null;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -26,6 +27,15 @@ export function CategoryFactory(sequelize: Sequelize): CategoryStatic {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+      },
+      image_idx: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        unique: true,
+        references: {
+          model: 'image',
+          key: 'image_idx',
+        },
       },
       createdAt: {
         type: DataTypes.DATE,

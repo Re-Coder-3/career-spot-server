@@ -1,5 +1,5 @@
 type Query {
-  findCategory: [Category]!
+  findCategory: returnCategoryType!
 }
 
 type Mutation {
@@ -8,7 +8,15 @@ type Mutation {
   updateCategory(category_idx: Int!, category_name: String!): Category!
 }
 
+type returnCategoryType {
+  count: Int!
+  rows: [Category!]!
+}
+
 type Category {
   category_idx: Int!
-  category_name: String!
+  category_name: String!,
+  image: Image!
 }
+
+
